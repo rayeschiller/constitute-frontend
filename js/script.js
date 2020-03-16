@@ -1,7 +1,7 @@
 DATA1 = document.getElementById('data1');
 
 $.ajax({   type: "GET",
-                url: "http://constitute.tech/tweets/?format=json&limit=100&politician__last_name=Ocasio-Cortez",
+                url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=Ocasio-Cortez",
                 dataType: "json",
                 success: function (result, status, xhr) {
                     let data = result.results;
