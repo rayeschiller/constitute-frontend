@@ -33,7 +33,7 @@ $.ajax({   type: "GET",
                     Plotly.newPlot( DATA1, trace_data, layout);
                 },
                 error: function (xhr, status, error) {
-                    alert("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
                 }
             });
 
