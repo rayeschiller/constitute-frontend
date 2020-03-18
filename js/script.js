@@ -79,7 +79,7 @@ $.ajax({   type: "GET",
                             };
 
                             let male_explicit_trace = gender_trace(male_dates, male_explicit, "Male Politicians", male_texts);
-                            let female_explicit_trace = gender_trace(female_dates, female_explicit, "Female Politicians", female_texts);
+                            let female_explicit_trace = gender_trace(male_dates, female_explicit, "Female Politicians", female_texts);
                             let trace_data = [female_explicit_trace,male_explicit_trace];
                             Plotly.newPlot(DATA2, trace_data, layout);
                         },
@@ -123,7 +123,7 @@ function gender_trace(x_data, y_data, name_info, texts=null) {
         name: name_info,
         mode: 'markers',
         marker: {
-            size: 3,
+            size: 4,
         },
         type: 'scatter'
     };
