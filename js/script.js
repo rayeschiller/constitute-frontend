@@ -26,7 +26,17 @@ function create_chart(last_name) {
                 yaxis: {
                     range: [0, 1]
                 },
-                title: 'Toxicity, Sexually Explicit, Identity Attacks about AOC'
+                title: 'Toxicity, Sexually Explicit, Identity Attacks about' + last_name,
+                xaxis: {
+                    title: {
+                      text: 'Date'
+                    },
+                  },
+                  yaxis: {
+                    title: {
+                      text: 'Toxicity Level'
+                    }
+                  }
             };
 
             let toxicity_trace = create_trace(dates, toxicity, "Toxicity", 'lines+markers', texts);
@@ -94,7 +104,16 @@ $.ajax({   type: "GET",
                                 yaxis: {
                                     range: [0, 1]
                                 },
-                                // title: 'Sexually Explicit Tweets about Leading Politicians'
+                                 xaxis: {
+                                    title: {
+                                      text: 'Date'
+                                    },
+                                  },
+                                  yaxis: {
+                                    title: {
+                                      text: 'Toxicity Level'
+                                    }
+                                  }
                             };
 
                             let male_explicit_trace = gender_trace(male_dates, male_explicit, "Male Politicians", male_texts);
