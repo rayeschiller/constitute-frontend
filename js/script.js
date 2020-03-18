@@ -96,7 +96,7 @@ function create_trace(x_data, y_data, name_info, texts=null) {
         y: y_data,
         text: texts,
         name: name_info,
-        mode: 'markers',
+        mode: 'lines+markers',
         type: 'scatter'
     };
 }
