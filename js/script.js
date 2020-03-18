@@ -2,43 +2,55 @@ DATA1 = document.getElementById('data1');
 DATA2 = document.getElementById('data2');
 DATA3 = document.getElementById('data3');
 
-
+function create_chart(last_name) {
 //RINA's CHART 1
-$.ajax({   type: "GET",
-                url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=Ocasio-Cortez",
-                dataType: "json",
-                success: function (result, status, xhr) {
-                    let data = result.results;
-                    let toxicity = [];
-                    let dates = [];
-                    let texts = [];
-                    let sexually_explicit_data = [];
-                    let identity_attack_data = [];
-                    for (var i=0; i<data.length; i++) {
-                        toxicity.push(data[i].toxicity);
-                        dates.push(data[i].date);
-                        texts.push(get_newline_text(data[i].text));
-                        sexually_explicit_data.push(data[i].sexually_explicit);
-                        identity_attack_data.push(data[i].identity_attack);
-                    }
-                    const layout = {
-                        yaxis: {
-                            range: [0, 1]
-                        },
-                        title: 'Toxicity, Sexually Explicit, Identity Attacks about AOC'
-                    };
-
-                    let toxicity_trace = create_trace(dates, toxicity, "Toxicity", 'lines+markers', texts) ;
-                    let identity_attack_trace= create_trace(dates,  identity_attack_data, "Identity Attack", 'lines+markers');
-                    let sexually_explicit_trace = create_trace(dates, sexually_explicit_data, "Sexually Explicit", 'lines+markers');
-                    let trace_data = [toxicity_trace, identity_attack_trace, sexually_explicit_trace];
-                    Plotly.newPlot( DATA1, trace_data, layout);
+    $.ajax({
+        type: "GET",
+        url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=" + last_name,
+        dataType: "json",
+        success: function (result, status, xhr) {
+            let data = result.results;
+            let toxicity = [];
+            let dates = [];
+            let texts = [];
+            let sexually_explicit_data = [];
+            let identity_attack_data = [];
+            for (var i = 0; i < data.length; i++) {
+                toxicity.push(data[i].toxicity);
+                dates.push(data[i].date);
+                texts.push(get_newline_text(data[i].text));
+                sexually_explicit_data.push(data[i].sexually_explicit);
+                identity_attack_data.push(data[i].identity_attack);
+            }
+            const layout = {
+                yaxis: {
+                    range: [0, 1]
                 },
-                error: function (xhr, status, error) {
-                    console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-                }
-            });
+                title: 'Toxicity, Sexually Explicit, Identity Attacks about AOC'
+            };
 
+            let toxicity_trace = create_trace(dates, toxicity, "Toxicity", 'lines+markers', texts);
+            let identity_attack_trace = create_trace(dates, identity_attack_data, "Identity Attack", 'lines+markers');
+            let sexually_explicit_trace = create_trace(dates, sexually_explicit_data, "Sexually Explicit", 'lines+markers');
+            let trace_data = [toxicity_trace, identity_attack_trace, sexually_explicit_trace];
+            Plotly.newPlot(DATA1, trace_data, layout);
+        },
+        error: function (xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+        }
+    });
+}
+
+$(document).ready(function(){
+            //Make initial graph
+            create_chart("Ocasio-Cortez");
+            //Change graph depending on politician
+            $('#button1').click(function(){
+                last_name = $('#combo :selected').val();
+                console.log(last_name);
+                create_chart(last_name)
+            });
+});
 //TOMS CHART
 $.ajax({   type: "GET",
                 url: "https://constitute.herokuapp.com/tweets/?format=json&politician__gender=Female",
@@ -92,6 +104,8 @@ $.ajax({   type: "GET",
 
 
 
+
+
 function create_trace(x_data, y_data, name_info, mode='markers', texts=null) {
     return {
         x: x_data,
@@ -129,83 +143,6 @@ function gender_trace(x_data, y_data, name_info, texts=null) {
     };
 }
 
-function makeTrace(i) {
-    let last_name = "";
-    switch(i) {
-        case 1:
-            last_name = "Ocasio-Cortez";
-            break;
-        case 2:
-            last_name = "Biden";
-            break;
-        case 3:
-            last_name = "Sanders";
-            break;
-        case 0:
-            last_name = "Warren";
-            break;
-    }
-
-    $.ajax({
-        type: "GET",
-        url: "https://constitute.herokuapp.com/tweets/?format=json&limit=10&politician__last_name=" + last_name,
-        dataType: "json",
-        success: function (result, status, xhr) {
-            let data = result.results;
-            console.log(data);
-            let toxicity = [];
-            for (var i=0; i<data.length; i++) {
-                toxicity.push(data[i].toxicity);
-                // texts.push(get_newline_text(data[i].text));
-            }
-            console.log(toxicity);
-            ret =  {
-                y: toxicity,
-                line: {
-                    shape: 'spline' ,
-                    color: 'red'
-                },
-                visible: i === 0,
-                name: 'Data set ' + i,
-
-            };
-            return ret;
-
-
-            Plotly.plot('data3', [0, 1, 2, 3].map(makeTrace), {
-                updatemenus: [ {
-                    y: 1,
-                    yanchor: 'top',
-                    buttons: [{
-                        method: 'restyle',
-                        args: ['visible', [true, false, false, false]],
-                        label: 'Data set 0'
-                    }, {
-                        method: 'restyle',
-                        args: ['visible', [false, true, false, false]],
-                        label: 'Data set 1'
-                    }, {
-                        method: 'restyle',
-                        args: ['visible', [false, false, true, false]],
-                        label: 'Data set 2'
-                    }, {
-                        method: 'restyle',
-                        args: ['visible', [false, false, false, true]],
-                        label: 'Data set 3'
-                    }]
-                }],
-                });
-
-
-            },
-        error: function (xhr, status, error) {
-            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-        }
-    });
-
-
-
-}
 
 //Rinas chart 2 test
 
