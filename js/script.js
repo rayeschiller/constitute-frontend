@@ -6,7 +6,6 @@ $.ajax({   type: "GET",
                 dataType: "json",
                 success: function (result, status, xhr) {
                     let data = result.results;
-                    console.log(result);
                     let toxicity = [];
                     let dates = [];
                     let texts = [];
@@ -15,11 +14,10 @@ $.ajax({   type: "GET",
                     for (var i=0; i<data.length; i++) {
                         toxicity.push(data[i].toxicity);
                         dates.push(data[i].date);
-                        texts.push(data[i].text);
+                        texts.push(get_newline_text(data[i].text));
                         sexually_explicit_data.push(data[i].sexually_explicit);
                         identity_attack_data.push(data[i].identity_attack);
                     }
-                    console.log(texts);
                     const layout = {
                         yaxis: {
                             range: [0, 1]
@@ -47,7 +45,6 @@ $.ajax({   type: "GET",
                         dataType: "json",
                         success: function (sanders_results, status, xhr) {
                             let warren_data = result.results;
-                            console.log(result);
                             let warren_toxicity = [];
                             let warren_dates = [];
                             let warren_texts = [];
@@ -56,7 +53,6 @@ $.ajax({   type: "GET",
                                 warren_dates.push(warren_data[i].date);
                                 warren_texts.push(warren_data[i].text);
                             }
-                            console.log(warren_texts);
 
                             let sanders_data = sanders_results.results;
                             console.log(result);
@@ -68,13 +64,16 @@ $.ajax({   type: "GET",
                                 sanders_dates.push(sanders_data[i].date);
                                 sanders_texts.push(sanders_data[i].text);
                             }
-                            console.log(sanders_texts);
                             const layout = {
                                 yaxis: {
                                     range: [0, 1]
                                 },
-                                title: 'Sanders, Warren'
+                                title: 'Sanders, Warren',
+                                hoverinfo: 'text',
+                                hovermode: "closest",
+
                             };
+
 
                             let sanders_toxicity_trace = create_trace(sanders_dates, sanders_toxicity, "Toxicity", sanders_texts);
                             let warren_toxicity_trace = create_trace(warren_dates, warren_toxicity, "Toxicity", warren_texts);
@@ -98,4 +97,19 @@ function create_trace(x_data, y_data, name_info, texts=null) {
         mode: 'lines+markers',
         type: 'scatter'
     };
+}
+
+function get_newline_text(text){
+    let html = text.split(" ");
+    let newhtml = [];
+    for(let i=0; i< html.length; i++) {
+        if(i>0 && (i%5) === 0)
+            newhtml.push("<br />");
+        newhtml.push(html[i]);
+    }
+    console.log("hereeee");
+    console.log(newhtml);
+    newhtml = newhtml.join(" ");
+    console.log(newhtml);
+    return newhtml;
 }
