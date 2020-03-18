@@ -50,6 +50,13 @@ $(document).ready(function(){
                 console.log(last_name);
                 create_chart(last_name)
             });
+
+            $( function() {
+                $('.datepicker').datetimepicker({
+                    format: 'dd/mm/yyyy'
+                });
+              } );
+
 });
 //TOMS CHART
 $.ajax({   type: "GET",
