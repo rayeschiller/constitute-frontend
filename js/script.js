@@ -5,7 +5,7 @@ DATA3 = document.getElementById('data3');
 
 //RINA's CHART 1
 $.ajax({   type: "GET",
-                url: "https://constitute.herokuapp.com/tweets/?format=json&limit=10&politician__last_name=Ocasio-Cortez",
+                url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=Ocasio-Cortez",
                 dataType: "json",
                 success: function (result, status, xhr) {
                     let data = result.results;
@@ -132,65 +132,81 @@ function gender_trace(x_data, y_data, name_info, texts=null) {
 
 function makeTrace(i) {
     let last_name = "";
-    switch(i){
+    switch(i) {
         case 1:
-             last_name="Ocasio-Cortez";
-             break;
+            last_name = "Ocasio-Cortez";
+            break;
         case 2:
-             last_name="Biden";
-             break;
+            last_name = "Biden";
+            break;
         case 3:
-             last_name="Sanders";
-             break;
-         case 0:
-             last_name="Warren";
-             break;
+            last_name = "Sanders";
+            break;
+        case 0:
+            last_name = "Warren";
+            break;
     }
 
-    url = "https://constitute.herokuapp.com/tweets/?format=json&limit=10&politician__last_name=" + last_name;
-    Plotly.d3.csv(url, function(data){
-         let r = data.results;
-        let toxicity = [];
-        for (var i=0; i<r.length; i++) {
-            toxicity.push(r[i].toxicity);
-            // texts.push(get_newline_text(data[i].text));
-        }
-        ret =  {
-            y: toxicity,
-            line: {
-                shape: 'spline' ,
-                color: 'red'
-            },
-            visible: i === 0,
-            name: 'Data set ' + i,
+    $.ajax({
+        type: "GET",
+        url: "https://constitute.herokuapp.com/tweets/?format=json&limit=10&politician__last_name=" + last_name,
+        dataType: "json",
+        success: function (result, status, xhr) {
+            let data = result.results;
+            console.log(data);
+            let toxicity = [];
+            for (var i=0; i<data.length; i++) {
+                toxicity.push(data[i].toxicity);
+                // texts.push(get_newline_text(data[i].text));
+            }
+            console.log(toxicity);
+            ret =  {
+                y: toxicity,
+                line: {
+                    shape: 'spline' ,
+                    color: 'red'
+                },
+                visible: i === 0,
+                name: 'Data set ' + i,
 
-        };
-        return ret
-     } );
+            };
+            return ret;
+
+
+            Plotly.plot('data3', [0, 1, 2, 3].map(makeTrace), {
+                updatemenus: [ {
+                    y: 1,
+                    yanchor: 'top',
+                    buttons: [{
+                        method: 'restyle',
+                        args: ['visible', [true, false, false, false]],
+                        label: 'Data set 0'
+                    }, {
+                        method: 'restyle',
+                        args: ['visible', [false, true, false, false]],
+                        label: 'Data set 1'
+                    }, {
+                        method: 'restyle',
+                        args: ['visible', [false, false, true, false]],
+                        label: 'Data set 2'
+                    }, {
+                        method: 'restyle',
+                        args: ['visible', [false, false, false, true]],
+                        label: 'Data set 3'
+                    }]
+                }],
+                });
+
+
+            },
+        error: function (xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+        }
+    });
+
+
+
 }
 
 //Rinas chart 2 test
 
-Plotly.plot('data3', [0, 1, 2, 3].map(makeTrace), {
-updatemenus: [ {
-    y: 1,
-    yanchor: 'top',
-    buttons: [{
-        method: 'restyle',
-        args: ['visible', [true, false, false, false]],
-        label: 'Data set 0'
-    }, {
-        method: 'restyle',
-        args: ['visible', [false, true, false, false]],
-        label: 'Data set 1'
-    }, {
-        method: 'restyle',
-        args: ['visible', [false, false, true, false]],
-        label: 'Data set 2'
-    }, {
-        method: 'restyle',
-        args: ['visible', [false, false, false, true]],
-        label: 'Data set 3'
-    }]
-}],
-});
