@@ -109,10 +109,7 @@ function get_newline_text(text){
             newhtml.push("<br />");
         newhtml.push(html[i]);
     }
-    console.log("hereeee");
-    console.log(newhtml);
     newhtml = newhtml.join(" ");
-    console.log(newhtml);
     return newhtml;
 }
 
