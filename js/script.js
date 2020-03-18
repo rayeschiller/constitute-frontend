@@ -1,6 +1,7 @@
 DATA1 = document.getElementById('data1');
 DATA2 = document.getElementById('data2');
 
+//RINA's CHART
 $.ajax({   type: "GET",
                 url: "https://constitute.herokuapp.com/tweets/?format=json&limit=10&politician__last_name=Ocasio-Cortez",
                 dataType: "json",
@@ -36,6 +37,7 @@ $.ajax({   type: "GET",
                 }
             });
 
+//TOMS CHART
  $.ajax({   type: "GET",
                 url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=Warren",
                 dataType: "json",
