@@ -26,7 +26,7 @@ function create_chart(last_name) {
                 yaxis: {
                     range: [0, 1]
                 },
-                title: 'Toxicity, Sexually Explicit, Identity Attacks about' + last_name,
+                title: 'Toxicity, Sexually Explicit, Identity Attacks about ' + last_name,
                 xaxis: {
                     title: {
                       text: 'Date'
@@ -96,7 +96,7 @@ $.ajax({   type: "GET",
                             for (var i=0; i<male_data.length; i++) {
                                 male_explicit.push(male_data[i].sexually_explicit);
                                 male_dates.push(male_data[i].date);
-                                male_texts.push(male_data[i].text);
+                                male_texts.push(get_newline_text(male_data[i].text));
                                 male_texts.push(get_newline_text(male_data[i].text));
                             }
 

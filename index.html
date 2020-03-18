@@ -52,7 +52,7 @@
   <header class="bg-primary text-white">
     <div class="container text-center">
       <h1>Political Toxicity</h1>
-      <p class="lead">Visualizations of toxicity online towards politicians</p>
+      <p class="lead">Visualizations of toxicity in Tweets</p>
       <p class="lead">Rina Schiller, Stephanie Polkinghorne, and Tom Shanahan</p>
     </div>
   </header>
@@ -65,7 +65,8 @@
               The data was collected by querying the Twitter API periodically and dates back to early 2019.
               We queried the Twitter API and searched for key words including the politician's first and last name and their twitter handles.
               In order to get information about the sentiment of the tweet, we used the <a href="http://www.perspectiveapi.com/">Perspective API</a>, an API used to detect abuse and harassment online.
-              Perspective API has the ability to detect multiple attributes. We used <em>TOXICITY, IDENTITY ATTACK,</em> and <em>SEXUALLY EXPLICIT</em>.</p>
+              Perspective API has the ability to detect multiple attributes. We used <em>toxicity, identity attack,</em> and <em>sexually explicit</em>.
+            </p>
 
           </div>
         </div>
@@ -75,8 +76,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-10 mx-auto">
-          <h2>Toxic and Identity Attacks Tweets about Leading Politicians</h2>
-          <p class="lead">Comparing the different levels of toxic and identity attack tweets against politicians over the last week.</p>
+          <h2>Toxic Tweets about Leading Politicians</h2>
+          <p class="lead">Comparing the different levels of toxic, flirtatious, and identity attack tweets against politicians. Click on the legend to pick which attributes to see.</p>
           <select id="combo">
                 <option value="Ocasio-Cortez">Alexandria Ocasio-Cortez</option>
                 <option value="Biden">Joe Biden</option>
@@ -88,6 +89,10 @@
 <!--          <p>Date: <input type="text" id="datepicker"></p>-->
           <div id="data1">
           </div>
+          <p>
+              A theme that emerged was the difference in attacks against male and female politicians. Female politicians are far more likely to have high identity attacks or flirtatious
+            tweets when they are being spoken about online. All the politicians had similar levels of toxic tweets, surprisingly showing that toxicity on Twitter does not discriminate by gender.
+          </p>
         </div>
       </div>
     </div>
@@ -115,7 +120,7 @@
       <div class="row">
         <div class="col-lg-10 mx-auto">
          <h2>Toxicity vs Identity Attack</h2>
-          <p class="lead"><a href="toxid.html">Click to view interactive version</a></p>
+          <p class="lead"><a href="toxid.html">To learn more about the ways toxicity and identity attacks interact with each other, we plotted Click to view interactive version</a></p>
           <a href="toxid.html">
              <img alt="Qries" src="preview.png">
           </a>
