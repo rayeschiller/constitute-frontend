@@ -38,47 +38,52 @@ $.ajax({   type: "GET",
             });
 
 //TOMS CHART
- $.ajax({   type: "GET",
-                url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=Warren",
+$.ajax({   type: "GET",
+                url: "https://constitute.herokuapp.com/tweets/?format=json&limit=2000&gender=Female",
                 dataType: "json",
                 success: function (result, status, xhr) {
                     $.ajax({   type: "GET",
-                        url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=Sanders",
+                        url: "https://constitute.herokuapp.com/tweets/?format=json&limit=2000&gender=Male",
                         dataType: "json",
-                        success: function (sanders_results, status, xhr) {
-                            let warren_data = result.results;
-                            console.log(result);
-                            let warren_explicit = [];
-                            let warren_dates = [];
-                            let warren_texts = [];
-                            for (var i=0; i<warren_data.length; i++) {
-                                warren_explicit.push(warren_data[i].sexually_explicit);
-                                warren_dates.push(warren_data[i].date);
-                                warren_texts.push(warren_data[i].text);
-                            }
-                            console.log(warren_texts);
+                        success: function (male_results, status, xhr) {
+                            let female_explicit = [];
+                            let female_dates = [];
+                            let female_texts = [];
 
-                            let sanders_data = sanders_results.results;
+                            let male_explicit = [];
+                            let male_dates = [];
+                            let male_texts = [];
+
+                            let female_data = result.results;
                             console.log(result);
-                            let sanders_explicit = [];
-                            let sanders_dates = [];
-                            let sanders_texts = [];
-                            for (var i=0; i<sanders_data.length; i++) {
-                                sanders_explicit.push(sanders_data[i].sexually_explicit);
-                                sanders_dates.push(sanders_data[i].date);
-                                sanders_texts.push(sanders_data[i].text);
+
+                            for (var i=0; i<female_data.length; i++) {
+                                female_explicit.push(female_data[i].sexually_explicit);
+                                female_dates.push(female_data[i].date);
+                                female_texts.push(get_newline_text(female_data[i].text));
                             }
-                            console.log(sanders_texts);
+                            console.log(female_texts);
+
+                            let male_data = male_results.results;
+                            console.log(result);
+
+                            for (var i=0; i<male_data.length; i++) {
+                                male_explicit.push(male_data[i].sexually_explicit);
+                                male_dates.push(male_data[i].date);
+                                male_texts.push(male_data[i].text);
+                                male_texts.push(get_newline_text(male_data[i].text));
+                            }
+                            console.log(male_texts);
                             const layout = {
                                 yaxis: {
                                     range: [0, 1]
                                 },
-                                title: 'Sexually Explicit Tweets about Leading Presidential Candidates'
+                                // title: 'Sexually Explicit Tweets about Leading Politicians'
                             };
 
-                            let sanders_explicit_trace = create_trace(sanders_dates, sanders_explicit, "Bernie Sanders", sanders_texts);
-                            let warren_explicit_trace = create_trace(sanders_dates, warren_explicit, "Elizabeth Warren", warren_texts);
-                            let trace_data = [warren_explicit_trace,sanders_explicit_trace];
+                            let male_explicit_trace = gender_trace(male_dates, male_explicit, "Male Politicians", male_texts);
+                            let female_explicit_trace = gender_trace(male_dates, female_explicit, "Female Politicians", female_texts);
+                            let trace_data = [female_explicit_trace,male_explicit_trace];
                             Plotly.newPlot( DATA2, trace_data, layout);
                         },
                         error: function (xhr, status, error) {
@@ -114,4 +119,18 @@ function get_newline_text(text){
     newhtml = newhtml.join(" ");
     console.log(newhtml);
     return newhtml;
+}
+
+function gender_trace(x_data, y_data, name_info, texts=null) {
+    return {
+        x: x_data,
+        y: y_data,
+        text: texts,
+        name: name_info,
+        mode: 'markers',
+        marker: {
+            size: 3,
+        },
+        type: 'scatter'
+    };
 }
