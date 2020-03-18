@@ -39,20 +39,20 @@ $.ajax({   type: "GET",
             });
 
 $.ajax({   type: "GET",
-                url: "https://constitute.herokuapp.com/tweets/?format=json&limit=10&politician__last_name=Warren",
+                url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=Warren",
                 dataType: "json",
                 success: function (result, status, xhr) {
                     $.ajax({   type: "GET",
-                        url: "https://constitute.herokuapp.com/tweets/?format=json&limit=10&politician__last_name=Sanders",
+                        url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=Sanders",
                         dataType: "json",
                         success: function (sanders_results, status, xhr) {
                             let warren_data = result.results;
                             console.log(result);
-                            let warren_toxicity = [];
+                            let warren_explicit = [];
                             let warren_dates = [];
                             let warren_texts = [];
                             for (var i=0; i<warren_data.length; i++) {
-                                warren_toxicity.push(warren_data[i].toxicity);
+                                warren_explicit.push(warren_data[i].sexually_explicit);
                                 warren_dates.push(warren_data[i].date);
                                 warren_texts.push(warren_data[i].text);
                             }
@@ -60,11 +60,11 @@ $.ajax({   type: "GET",
 
                             let sanders_data = sanders_results.results;
                             console.log(result);
-                            let sanders_toxicity = [];
+                            let sanders_explicit = [];
                             let sanders_dates = [];
                             let sanders_texts = [];
                             for (var i=0; i<sanders_data.length; i++) {
-                                sanders_toxicity.push(sanders_data[i].toxicity);
+                                sanders_explicit.push(sanders_data[i].sexually_explicit);
                                 sanders_dates.push(sanders_data[i].date);
                                 sanders_texts.push(sanders_data[i].text);
                             }
@@ -73,12 +73,12 @@ $.ajax({   type: "GET",
                                 yaxis: {
                                     range: [0, 1]
                                 },
-                                title: 'Sanders, Warren'
+                                title: 'Sexually Explicit Tweets about Leading Presidential Candidates'
                             };
 
-                            let sanders_toxicity_trace = create_trace(sanders_dates, sanders_toxicity, "Toxicity", sanders_texts);
-                            let warren_toxicity_trace = create_trace(warren_dates, warren_toxicity, "Toxicity", warren_texts);
-                            let trace_data = [warren_toxicity_trace,sanders_toxicity_trace];
+                            let sanders_explicit_trace = create_trace(sanders_dates, sanders_explicit, "Bernie Sanders", sanders_texts);
+                            let warren_explicit_trace = create_trace(sanders_dates, warren_explicit, "Elizabeth Warren", warren_texts);
+                            let trace_data = [warren_explicit_trace,sanders_explicit_trace];
                             Plotly.newPlot( DATA2, trace_data, layout);
                         },
                         error: function (xhr, status, error) {
@@ -95,7 +95,7 @@ function create_trace(x_data, y_data, name_info, texts=null) {
         y: y_data,
         text: texts,
         name: name_info,
-        mode: 'lines+markers',
+        mode: 'markers',
         type: 'scatter'
     };
 }
