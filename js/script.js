@@ -2,20 +2,31 @@ DATA1 = document.getElementById('data1');
 DATA2 = document.getElementById('data2');
 DATA3 = document.getElementById('data3');
 
-function create_chart(last_name) {
+function create_chart(last_name, query_date) {
 //RINA's CHART 1
+    let gt_month = query_date.getMonth();
+    let lt_month = query_date.getMonth()+2;
+    let gt_year = query_date.getFullYear()-1;
+    let lt_year = query_date.getFullYear()+1;
+    let gt_day = query_date.getDate()-1;
+    let lt_day = query_date.getDate()+1;
+    console.log("gt_month %s, lt_month %s, gt_year %s, lt_year %s, gt_day %s, lt_day %s", gt_month, lt_month, gt_year, lt_year, gt_day, lt_day);
+    console.log(query_date);
+
     $.ajax({
         type: "GET",
-        url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=" + last_name,
+        url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=" + last_name + "&date__year__lt=" + lt_year + "&date__year__gt=" + gt_year + "&date__month__gt=" + gt_month + "&date__month__lt=" + lt_month + "&date__day__gt=" + gt_day + "&date__day__lt=" + lt_day,
         dataType: "json",
         success: function (result, status, xhr) {
+            console.log(this.url);
+            console.log(result);
             let data = result.results;
             let toxicity = [];
             let dates = [];
             let texts = [];
             let sexually_explicit_data = [];
             let identity_attack_data = [];
-            for (var i = 0; i < data.length; i++) {
+            for (let i = 0; i < data.length; i++) {
                 toxicity.push(data[i].toxicity);
                 dates.push(data[i].date);
                 texts.push(get_newline_text(data[i].text));
@@ -52,20 +63,22 @@ function create_chart(last_name) {
 }
 
 $(document).ready(function(){
-            //Make initial graph
-            create_chart("Ocasio-Cortez");
-            //Change graph depending on politician
-            $('#button1').click(function(){
-                last_name = $('#combo :selected').val();
-                console.log(last_name);
-                create_chart(last_name)
-            });
+        //Make initial graph
+        let last_name = "Ocasio-Cortez";
+        let today = new Date();
+        create_chart(last_name, today);
+        //Change graph depending on politician
+        $('#button1').click(function(){
+            last_name = $('#combo :selected').val();
+            console.log(last_name);
+            create_chart(last_name, today);
+        });
 
-            $( function() {
-                $('.datepicker').datetimepicker({
-                    format: 'dd/mm/yyyy'
-                });
-              } );
+        $('#dateb').click(function(){
+            let date = $('#datep').val();
+            console.log(date);
+            create_chart(last_name, new Date(date))
+        });
 
 });
 //TOMS CHART
