@@ -187,7 +187,7 @@ function gender_trace(x_data, y_data, name_info, texts=null) {
         name: name_info,
         mode: 'markers',
         marker: {
-            size: 4,
+            size: 8,
         },
         type: 'scatter'
     };
