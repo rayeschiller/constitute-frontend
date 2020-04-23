@@ -59,4 +59,20 @@ function create_gender_chart(query_date){
                     }
                 });
 
-    }
+    };
+
+
+
+function gender_trace(x_data, y_data, name_info, texts=null) {
+    return {
+        x: x_data,
+        y: y_data,
+        text: texts,
+        name: name_info,
+        mode: 'markers',
+        marker: {
+            size: 8,
+        },
+        type: 'scatter'
+    };
+}

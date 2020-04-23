@@ -2,13 +2,13 @@ DATA1 = document.getElementById('data1');
 DATA2 = document.getElementById('data2');
 DATA3 = document.getElementById('data3');
 
-function get_date_query(query_date){
+function get_date_query(query_date) {
     let gt_month = query_date.getMonth();
-    let lt_month = query_date.getMonth()+2;
-    let gt_year = query_date.getFullYear()-1;
-    let lt_year = query_date.getFullYear()+1;
-    let gt_day = query_date.getDate()-1;
-    let lt_day = query_date.getDate()+1;
+    let lt_month = query_date.getMonth() + 2;
+    let gt_year = query_date.getFullYear() - 1;
+    let lt_year = query_date.getFullYear() + 1;
+    let gt_day = query_date.getDate() - 1;
+    let lt_day = query_date.getDate() + 1;
     console.log("gt_month %s, lt_month %s, gt_year %s, lt_year %s, gt_day %s, lt_day %s", gt_month, lt_month, gt_year, lt_year, gt_day, lt_day);
     return "&created_at__year__lt=" + lt_year + "&created_at__year__gt=" + gt_year + "&created_at__month__gt=" + gt_month + "&created_at__month__lt=" + lt_month + "&created_at__day__gt=" + gt_day + "&created_at__day__lt=" + lt_day;
 };
@@ -43,14 +43,14 @@ function create_tweet_chart(last_name, query_date) {
                 title: 'Toxicity, Sexually Explicit, Identity Attacks about ' + last_name,
                 xaxis: {
                     title: {
-                      text: 'Date'
+                        text: 'Date'
                     },
-                  },
-                  yaxis: {
+                },
+                yaxis: {
                     title: {
-                      text: 'Toxicity Level'
+                        text: 'Toxicity Level'
                     }
-                  }
+                }
             };
 
             let toxicity_trace = create_trace(dates, toxicity, "Toxicity", 'lines+markers', texts);
@@ -66,59 +66,54 @@ function create_tweet_chart(last_name, query_date) {
 }
 
 
-function toxicity_frequency(){
-     $.ajax({
-         type: "GET",
-         url: "https://constitute.herokuapp.com/politicians/toxicity_counts?format=json&",
-         dataType: "json",
-         success: function (result, status, xhr) {
-             console.log(result);
-             var data = [
-                 {
-                     x: Object.keys(result),
-                     y: Object.values(result),
-                     type: 'bar'
-                 }
-             ];
-             Plotly.newPlot(DATA2, data);
-         },
-         error: function(xhr, status, error){
+function toxicity_frequency() {
+    $.ajax({
+        type: "GET",
+        url: "https://constitute.herokuapp.com/politicians/toxicity_counts?format=json&",
+        dataType: "json",
+        success: function (result, status, xhr) {
+            console.log(result);
+            let x = Object.keys(result);
+            let y = Object.values(result);
+            let toxicity = y.map(a => a.toxicity);
+            let sexually_explicit = y.map(a => a.sexually_explicit);
+            let identity_attack = y.map(a => a.identity_attack);
+            let data = [count_trace(x, toxicity, 'toxicity'), count_trace(x, sexually_explicit, 'sexually explicit'), count_trace(x, identity_attack, 'identity attack')];
+            Plotly.newPlot(DATA2, data);
+        },
+        error: function (xhr, status, error) {
             console.log("Error: " + error);
-    }
-     });
+        }
+    });
 }
 
-$(document).ready(function(){
-        //Make initial tweets graph
-        let last_name = "Ocasio-Cortez";
-        let today = new Date();
-        create_tweet_chart(last_name, today);
-        toxicity_frequency();
-        // create_gender_chart(today);
-        //Change graph depending on politician
-        $('#button1').click(function(){
-            last_name = $('#combo :selected').val();
-            create_tweet_chart(last_name, today, DATA1);
-        });
-        //Change graph depending on date
-        $('#date_tweets').click(function(){
-            let date = $('#date_tweets_field').val();
-            create_tweet_chart(last_name, new Date(date))
-        });
+$(document).ready(function () {
+    //Make initial tweets graph
+    let last_name = "Ocasio-Cortez";
+    let today = new Date();
+    create_tweet_chart(last_name, today);
+    toxicity_frequency();
+    // create_gender_chart(today);
+    //Change graph depending on politician
+    $('#button1').click(function () {
+        last_name = $('#combo :selected').val();
+        create_tweet_chart(last_name, today, DATA1);
+    });
+    //Change graph depending on date
+    $('#date_tweets').click(function () {
+        let date = $('#date_tweets_field').val();
+        create_tweet_chart(last_name, new Date(date))
+    });
 
-        // $('#date_gender').click(function(){
-        //     let date = $('#date_gender_field').val();
-        //     console.log(date);
-        //     create_gender_chart(new Date(date))
-        // });
+    // $('#date_gender').click(function(){
+    //     let date = $('#date_gender_field').val();
+    //     console.log(date);
+    //     create_gender_chart(new Date(date))
+    // });
 });
 
 
-
-
-
-
-function create_trace(x_data, y_data, name_info, mode='markers', texts=null) {
+function create_trace(x_data, y_data, name_info, mode = 'markers', texts = null) {
     return {
         x: x_data,
         y: y_data,
@@ -129,11 +124,20 @@ function create_trace(x_data, y_data, name_info, mode='markers', texts=null) {
     };
 }
 
-function get_newline_text(text){
+function count_trace(x_data, y_data, name_info) {
+    return {
+        x: x_data,
+        y: y_data,
+        type: 'bar',
+        name: name_info
+    }
+};
+
+function get_newline_text(text) {
     let html = text.split(" ");
     let newhtml = [];
-    for(let i=0; i< html.length; i++) {
-        if(i>0 && (i%5) === 0)
+    for (let i = 0; i < html.length; i++) {
+        if (i > 0 && (i % 5) === 0)
             newhtml.push("<br />");
         newhtml.push(html[i]);
     }
@@ -141,19 +145,6 @@ function get_newline_text(text){
     return newhtml;
 }
 
-function gender_trace(x_data, y_data, name_info, texts=null) {
-    return {
-        x: x_data,
-        y: y_data,
-        text: texts,
-        name: name_info,
-        mode: 'markers',
-        marker: {
-            size: 8,
-        },
-        type: 'scatter'
-    };
-}
 
 
 
