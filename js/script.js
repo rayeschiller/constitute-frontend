@@ -10,7 +10,7 @@ function get_date_query(query_date){
     let gt_day = query_date.getDate()-1;
     let lt_day = query_date.getDate()+1;
     console.log("gt_month %s, lt_month %s, gt_year %s, lt_year %s, gt_day %s, lt_day %s", gt_month, lt_month, gt_year, lt_year, gt_day, lt_day);
-    return "&date__year__lt=" + lt_year + "&date__year__gt=" + gt_year + "&date__month__gt=" + gt_month + "&date__month__lt=" + lt_month + "&date__day__gt=" + gt_day + "&date__day__lt=" + lt_day;
+    return "&created_at__year__lt=" + lt_year + "&created_at__year__gt=" + gt_year + "&created_at__month__gt=" + gt_month + "&created_at__month__lt=" + lt_month + "&created_at__day__gt=" + gt_day + "&created_at__day__lt=" + lt_day;
 };
 
 function create_tweet_chart(last_name, query_date) {
