@@ -185,7 +185,6 @@ function get_newline_text(text) {
 }
 
 
-$
 
 function get_year(year) {
     let gt_year = parseInt(year) - 1;
@@ -194,6 +193,7 @@ function get_year(year) {
 }
 function toxicity_by_gender(year) {
     let q_year = get_year(year);
+    console.log(q_year);
     let female_data, female_dates, male_data, male_dates;
     let female_trace, male_trace
     const layout = {
