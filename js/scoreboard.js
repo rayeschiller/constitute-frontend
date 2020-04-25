@@ -14,22 +14,31 @@ function get_oembed(tweet_id){
 
 $(document).ready(function () {
 
-    // get_oembed('1254130684546998279');
-    get_top_tweets()
+    get_top_tweets('toxicity', '.9');
+
+     $('#identity_attack').click(function(){
+         get_top_tweets('identity_attack', '.7')
+     });
+     $('#sexually_explict').click(function(){
+         get_top_tweets('sexually_explict', '.7')
+     });
+     $('#toxicity').click(function(){
+         get_top_tweets('toxicity', '.9')
+     });
 });
 
 
-function get_top_tweets(){
+function get_top_tweets(attribute, gtv){
      $.ajax({
         type: "GET",
-        url: "https://constitute.herokuapp.com/tweets/?" + "toxicity__gt=.9",
+        url: "https://constitute.herokuapp.com/tweets/?" + attribute + "__gt=" + gtv,
         dataType: "json",
         success: function (result, status, xhr) {
             console.log(result);
             let cards = $();
             let data = result.results;
             data.forEach(function(item, i){
-                cards = cards.add(tweet_card(item));
+                cards = cards.add(tweet_card(item, attribute));
             });
 
             $('#top_toxic').append(cards)
@@ -40,12 +49,12 @@ function get_top_tweets(){
     });
 }
 
-function tweet_card(tweet){
+function tweet_card(tweet, attribute){
     let cardTemplate = [
         '<div class="card p-3 text-left" style="width: 18rem;>',
         '<div class="card-body">',
         '<h5 class="card-subtitle mb-2 text-muted">Score:',
-        tweet.toxicity,
+        tweet[attribute],
         '</h5>',
         '<p class="card-text">',
         tweet.text || 'cant find text',
