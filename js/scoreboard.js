@@ -49,7 +49,9 @@ function tweet_card(tweet){
         '</h5>',
         '<p class="card-text">',
         tweet.text || 'cant find text',
-        '</p></div></div>'
+        '</p>' +
+        '<small><a href="#" class="card-link ">Report Tweet</a></small>',
+        '</div></div>'
     ];
     return $(cardTemplate.join(''));
 }
