@@ -1,6 +1,9 @@
 DATA1 = document.getElementById('data1');
 DATA2 = document.getElementById('data2');
 DATA3 = document.getElementById('data3');
+DATA4 = document.getElementById('data4');
+
+
 let toggle = false;
 
 function get_date_query(query_date) {
