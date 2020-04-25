@@ -180,11 +180,11 @@ function get_newline_text(text) {
 }
 
 
-    $("#starting_date_field").datepicker({
-    format: "yyyy",
-    viewMode: "years", 
-    minViewMode: "years"
-    });
+    // $("#starting_date_field").datepicker({
+    // format: "yyyy",
+    // viewMode: "years", 
+    // minViewMode: "years"
+    // });
 
     $('#starting_date_tweets').click(function () {
         let year = $('#starting_date_field').val();
