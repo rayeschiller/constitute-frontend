@@ -90,18 +90,21 @@
         <div class="col-lg-12 mx-auto">
           <h2>Toxic Tweets about Leading Politicians</h2>
           <p class="lead">Comparing the different levels of toxic, flirtatious, and identity attack tweets against politicians. Click on the legend to pick which attributes to see.</p>
-          <select id="combo">
+          <div class="form-group mx-sm-3 mb-2">
+          <select class="form-control" id="combo">
                 <option value="Ocasio-Cortez">Alexandria Ocasio-Cortez</option>
                 <option value="Biden">Joe Biden</option>
                 <option value="Sanders">Bernie Sanders</option>
                 <option value="Warren">Elizabeth Warren</option>
-                <option value="Pelosi">Nancy Pelosi</option>
+                <option value="Buttigieg">Pete Buttigieg</option>
+                <option value="McConnell">Mitch McConnell</option>
+                <option value="Trump">Donald Trump</option>
             </select>
-          <input id="button1" type="button" value="Choose Politician" />
-<!--          <p>Date: <input type="text" id="datepicker"></p>-->
+          <input id="button1" class="btn btn-info" type="button" value="Choose Politician" />
            <br><br>
           <input id="date_tweets_field" data-provide="datepicker">
-          <input id="date_tweets" type="button" value="Choose Date"/>
+          <input id="date_tweets" class="btn btn-info" type="button" value="Choose Date"/>
+            </div>
           <div id="data1">
           </div>
           <p>
@@ -138,6 +141,7 @@
         <div class="col-lg-10 mx-auto">
           <h2>Frequency of Toxic Tweets</h2>
           <p class="lead">Absolute frequency of toxic tweets by politician. A toxic tweet has a .7 or higher toxicity score.</p>
+<!--          <button id="toggle" type="submit" class="btn btn-info mb-2">Toggle Percentage</button>-->
           <div id="data2">
           </div>
 
