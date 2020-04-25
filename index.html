@@ -83,7 +83,8 @@
                     harassment online.
                     Perspective API has the ability to detect multiple attributes. We used <em>toxicity, identity
                         attack,</em> and <em>sexually explicit</em>.</p>
-                    <p class="lead">Perspective API takes comment text as input and returns a "score" from 0 to 1 that indicates the
+                <p class="lead">Perspective API takes comment text as input and returns a "score" from 0 to 1 that
+                    indicates the
                     probability that the comment is similar to toxic comments it's seen in the past.
                     A score of 0 signifies 0% probability that the comment is toxic, a score of 1 signifies 100%
                     probability that the comment is toxic,
@@ -99,11 +100,11 @@
         </div>
     </div>
 </section>
-<section id="dataviz1">
+<section id="dataviz1" class="bg-light">
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mx-auto">
-                <h2>Graph A: Toxicity levels in tweets about leading democrats</h2>
+                <h2>Graph A: Toxicity levels in Tweets</h2>
                 <p class="lead">Comparing the levels of toxic, flirtatious, and identity attack tweets against five
                     leading democratic politicians. Use the legend to choose which politician’s twitter mentions you
                     would like to browse. </p>
@@ -136,6 +137,7 @@
                 </p>
             </div>
         </div>
+    </div>
 </section>
 
 <!--  <section id="dataviz2" class="bg-light">-->
@@ -160,7 +162,7 @@
 <section id="dataviz2" class="bg-light">
     <div class="container">
         <div class="row">
-            <div class="col-lg-10 mx-auto">
+            <div class="col-lg-12 mx-auto">
                 <h2> Graph B: Toxic Tweets Directed at Politicians</h2>
                 <p class="lead">Toggle between two views: absolute number of tweets directed at politicians categorized
                     as “toxic,” “sexually explicit” or “identity attack”; and number of tweets directed at politicians
@@ -220,7 +222,7 @@
                 <h2>Toxicity By Gender</h2>
                 <p class="lead">Proportion of toxic tweets by gender. A toxic tweet has a .7 or higher toxicity
                     score.</p>
-                <select class="form-control" id="combo">
+                <select class="form-control">
                     <option value="2019">2019</option>
                     <option value="2020">2020</option>
                 </select>
