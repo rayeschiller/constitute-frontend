@@ -67,7 +67,7 @@ function create_tweet_chart(last_name, query_date) {
 }
 
 
-function toxicity_frequency() {
+function toxicity_frequency(absolute=false) {
     $.ajax({
         type: "GET",
         url: "https://constitute.herokuapp.com/politicians/toxicity_counts?format=json&",
@@ -76,11 +76,20 @@ function toxicity_frequency() {
             console.log(result);
             let x = Object.keys(result);
             let y = Object.values(result);
-            let toxicity = y.map(a => a.toxicity);
-            let sexually_explicit = y.map(a => a.sexually_explicit);
-            let identity_attack = y.map(a => a.identity_attack);
-            let data = [count_trace(x, toxicity, 'toxicity'), count_trace(x, sexually_explicit, 'sexually explicit'), count_trace(x, identity_attack, 'identity attack')];
-            Plotly.newPlot(DATA2, data);
+            let toxicity, sexually_explicit, identity_attack;
+            if (absolute) {
+                toxicity = y.map(a => a.toxicity);
+                sexually_explicit = y.map(a => a.sexually_explicit);
+                identity_attack = y.map(a => a.identity_attack);
+            } else {
+                toxicity = y.map(a => a.toxicity / a.total);
+                sexually_explicit = y.map(a => a.sexually_explicit / a.total);
+                identity_attack = y.map(a => a.identity_attack / a.total);
+            }
+            let data = [count_trace(x, toxicity, 'toxicity'),
+                count_trace(x, sexually_explicit, 'sexually explicit'),
+                count_trace(x, identity_attack, 'identity attack')];
+            Plotly.newPlot(DATA2, data, count_layout(absolute));
         },
         error: function (xhr, status, error) {
             console.log("Error: " + error);
@@ -93,7 +102,8 @@ $(document).ready(function () {
     let last_name = "Ocasio-Cortez";
     let today = new Date();
     create_tweet_chart(last_name, today);
-    toxicity_frequency();
+    let toggle=false;
+    toxicity_frequency(toggle);
     // create_gender_chart(today);
     //Change graph depending on politician
     $('#button1').click(function () {
@@ -106,6 +116,16 @@ $(document).ready(function () {
         create_tweet_chart(last_name, new Date(date))
     });
 
+    $('#toggle').click(function () {
+        if (toggle === false) {
+            toxicity_frequency(true);
+            toggle = true
+        } else {
+            toxicity_frequency(false);
+            toggle = false
+        }
+
+    })
     // $('#date_gender').click(function(){
     //     let date = $('#date_gender_field').val();
     //     console.log(date);
@@ -133,6 +153,19 @@ function count_trace(x_data, y_data, name_info) {
         name: name_info
     }
 };
+
+function count_layout(absolute) {
+    if (absolute) {
+        return {}
+    } else {
+        return {
+            yaxis: {
+                tickformat: ',.0%',
+                // range: [0, 1]
+            }
+        }
+    }
+}
 
 function get_newline_text(text) {
     let html = text.split(" ");
