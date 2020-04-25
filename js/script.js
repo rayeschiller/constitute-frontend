@@ -126,6 +126,11 @@ $(document).ready(function () {
         }
 
     })
+
+    $('#starting_date_tweets').click(function () {
+        year = $('#year_choice :selected').val();
+        toxicity_by_gender(year);
+    });
     // $('#date_gender').click(function(){
     //     let date = $('#date_gender_field').val();
     //     console.log(date);
@@ -180,16 +185,7 @@ function get_newline_text(text) {
 }
 
 
-    // $("#starting_date_field").datepicker({
-    // format: "yyyy",
-    // viewMode: "years", 
-    // minViewMode: "years"
-    // });
-
-    $('#starting_date_tweets').click(function () {
-        let year = $('#starting_date_field').val();
-        toxicity_by_gender(year)
-    });
+$
 
 function get_year(year) {
     let gt_year = parseInt(year) - 1;
