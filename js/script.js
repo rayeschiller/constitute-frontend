@@ -3,9 +3,6 @@ DATA2 = document.getElementById('data2');
 DATA3 = document.getElementById('data3');
 DATA4 = document.getElementById('data4');
 
-
-let toggle = false;
-
 function get_date_query(query_date) {
     let gt_month = query_date.getMonth();
     let lt_month = query_date.getMonth() + 2;
@@ -70,7 +67,7 @@ function create_tweet_chart(last_name, query_date) {
 }
 
 
-function toxicity_frequency(absolute) {
+function toxicity_frequency(absolute=false) {
     $.ajax({
         type: "GET",
         url: "https://constitute.herokuapp.com/politicians/toxicity_counts?format=json&",
@@ -89,8 +86,10 @@ function toxicity_frequency(absolute) {
                 sexually_explicit = y.map(a => a.sexually_explicit / a.total);
                 identity_attack = y.map(a => a.identity_attack / a.total);
             }
-            let data = [count_trace(x, toxicity, 'toxicity'), count_trace(x, sexually_explicit, 'sexually explicit'), count_trace(x, identity_attack, 'identity attack')];
-            Plotly.newPlot(DATA2, data, count_layout());
+            let data = [count_trace(x, toxicity, 'toxicity'),
+                count_trace(x, sexually_explicit, 'sexually explicit'),
+                count_trace(x, identity_attack, 'identity attack')];
+            Plotly.newPlot(DATA2, data, count_layout(absolute));
         },
         error: function (xhr, status, error) {
             console.log("Error: " + error);
@@ -103,6 +102,7 @@ $(document).ready(function () {
     let last_name = "Ocasio-Cortez";
     let today = new Date();
     create_tweet_chart(last_name, today);
+    let toggle=false;
     toxicity_frequency(toggle);
     // create_gender_chart(today);
     //Change graph depending on politician
@@ -117,11 +117,11 @@ $(document).ready(function () {
     });
 
     $('#toggle').click(function () {
-        if (toggle == false) {
-            toxicity_frequency(false);
+        if (toggle === false) {
+            toxicity_frequency(true);
             toggle = true
         } else {
-            toxicity_frequency(true);
+            toxicity_frequency(false);
             toggle = false
         }
 
@@ -154,7 +154,7 @@ function count_trace(x_data, y_data, name_info) {
     }
 };
 
-function count_layout(absolute = toggle) {
+function count_layout(absolute) {
     if (absolute) {
         return {}
     } else {
