@@ -180,18 +180,6 @@ function get_newline_text(text) {
 }
 
 
-
-
-$(document).ready(function () {
-    //Make initial tweets graph
-    
-    // let today = new Date();
-    // create_tweet_chart(last_name, today);
-    // toxicity_frequency();
-    // create_gender_chart(today);
-    //Change graph depending on politician
-
-    //Change graph depending on date
     $("#starting_date_field").datepicker({
     format: "yyyy",
     viewMode: "years", 
@@ -233,6 +221,7 @@ function toxicity_by_gender(year) {
         url: "https://constitute.herokuapp.com/tweets/?format=json" + q_year +'&politician__gender=Female',
         dataType: "json",
         success: function (result, status, xhr) {
+            console.log("result")
             female_dates, female_data = get_toxicity_per_day(result, status, xhr)
             female_trace = create_trace(female_dates, female_data)
             Plotly.newPlot(DATA4, female_trace, layout);
@@ -241,8 +230,6 @@ function toxicity_by_gender(year) {
             console.log("Error: " + error);
         }
     });
-
-
 
 }
 
@@ -272,4 +259,5 @@ function get_toxicity_per_day(result, status, xhr) {
             
             // Plotly.newPlot(DATA2, data);
 }
+
 
