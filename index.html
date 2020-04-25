@@ -34,7 +34,7 @@
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
-        <a class="navbar-brand js-scroll-trigger" href="#page-top">Home</a>
+        <a class="navbar-brand js-scroll-trigger" href="index.html">Home</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -103,9 +103,10 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mx-auto">
-                <h2>Toxic Tweets about Leading Politicians</h2>
-                <p class="lead">Comparing the different levels of toxic, flirtatious, and identity attack tweets against
-                    politicians. Click on the legend to pick which attributes to see.</p>
+                <h2>Graph A: Toxicity levels in tweets about leading democrats</h2>
+                <p class="lead">Comparing the levels of toxic, flirtatious, and identity attack tweets against five
+                    leading democratic politicians. Use the legend to choose which politician’s twitter mentions you
+                    would like to browse. </p>
                 <div class="form-group mx-sm-3 mb-2">
                     <select class="form-control" id="combo">
                         <option value="Ocasio-Cortez">Alexandria Ocasio-Cortez</option>
@@ -124,7 +125,7 @@
                 <div id="data1">
                 </div>
                 <p>
-                    In this graph we can see that attacks against female politicians are different than their male
+                    In Graph A we can see that attacks against female politicians are different than their male
                     counterparts. Elizabeth Warren, Alexandria Ocasio-Cortez and Nancy Pelosi are more likely to have
                     higher levels of identity attacks or flirtatious tweets when they are mentioned on twitter. However,
                     Joe Biden had a higher level of sexually-explicit twitter mentions than Bernie Sanders— mostly based
@@ -160,35 +161,56 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 mx-auto">
-                <h2>Frequency of Toxic Tweets</h2>
-                <p class="lead">Absolute frequency of toxic tweets by politician. A toxic tweet has a .7 or higher
-                    toxicity score.</p>
+                <h2> Graph B: Toxic Tweets Directed at Politicians</h2>
+                <p class="lead">Toggle between two views: absolute number of tweets directed at politicians categorized
+                    as “toxic,” “sexually explicit” or “identity attack”; and number of tweets directed at politicians
+                    for each category as a percentage of all tweets directed at the politician.
+                </p>
                 <button id="toggle" type="submit" class="btn btn-info mb-2">Toggle Percentage/Absolute</button>
                 <div id="data2">
                 </div>
+                <p>Graph B shows the absolute number of tweets that were tweeted “@username” for each politician. For
+                    example, tweets counted for Chuck Schumer would be any tweet that was tweeted @SenSchumer or
+                    included his full name in the tweet. </p>
+
+                <p>Using a language processing API, we categorized each tweet, if applicable, into one of the three
+                    categories shown: toxicity, sexually explicit or identity attack. The two views represent total
+                    tweets (absolute value of tweets defined as “toxic,” “sexually explicit” or “identity attack”
+                    according to the API) or proportional tweets (number of tweets defined as “toxic,” “sexually
+                    explicit” and “identity attack” divided by total tweets).</p>
+
+                <p>For politicians in the chart above, both House Speaker Nancy Pelosi and President Donald Trump have
+                    high levels of generally toxic tweets directed at them, with 14% and 12% of tweets categorized as
+                    toxic, respectively. Representative Ocasio-Cortez and Senator Harris both had 4% of tweets directed
+                    at them fall into the “identity attack” bucket.</p>
+
+                <p>Of the men and women shown on this chart, 5% of tweets directed at presumptive Democratic Party
+                    Nominee Joe Biden were defined as “sexually explicit,” compared to 2% for Pete Buttigieg, 3% for
+                    Bernie Sanders and 2% for Kamala Harris. Both highest scorers for the “sexually explicit” categories
+                    were men. </p>
 
             </div>
         </div>
     </div>
 </section>
 
-<!--<section id="dataviz3">-->
-<!--    <div class="container">-->
-<!--        <div class="row">-->
-<!--            <div class="col-lg-10 mx-auto">-->
-<!--                <h2>Toxicity vs Identity Attack</h2>-->
-<!--                <p>To learn more about the ways toxicity and identity attacks interact with each other, we plotted each-->
-<!--                    tweets identity attack score vs its toxicity score.-->
-<!--                    You can see that while most Tweets are in the bottom right, there are a fair few that are both very-->
-<!--                    toxic and have a large identity attack.</p>-->
-<!--                <p class="lead"><a href="toxid.html">Click to view interactive version</a></p>-->
-<!--                <a href="toxid.html">-->
-<!--                    <img alt="Qries" src="preview.png">-->
-<!--                </a>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</section>-->
+<section id="dataviz3">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h2>Toxicity vs Identity Attack</h2>
+                <p>To learn more about the ways toxicity and identity attacks interact with each other, we plotted each
+                    tweets identity attack score vs its toxicity score.
+                    You can see that while most Tweets are in the bottom right, there are a fair few that are both very
+                    toxic and have a large identity attack.</p>
+                <p class="lead"><a href="toxid.html">Click to view interactive version</a></p>
+                <a href="toxid.html">
+                    <img alt="Qries" src="preview.png">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
 
 
 <section id="dataviz4" class="bg-light">
@@ -198,7 +220,7 @@
                 <h2>Toxicity By Gender</h2>
                 <p class="lead">Proportion of toxic tweets by gender. A toxic tweet has a .7 or higher toxicity
                     score.</p>
-                <select class="form-control" >
+                <select class="form-control" id="combo">
                     <option value="2019">2019</option>
                     <option value="2020">2020</option>
                 </select>
