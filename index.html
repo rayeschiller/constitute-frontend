@@ -3,121 +3,139 @@
 
 <head>
 
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-  <title>Political Toxicity</title>
+    <title>Political Toxicity</title>
 
-  <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Custom styles for this template -->
-  <link href="css/scrolling-nav.css" rel="stylesheet">
-  <script src="https://d3js.org/d3.v5.min.js"></script>
-  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-  <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
-  <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dropdown/2.0.3/jquery.dropdown.min.css">
+    <!-- Custom styles for this template -->
+    <link href="css/scrolling-nav.css" rel="stylesheet">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    <link rel="stylesheet"
+          src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.min.css">
+    <link rel="stylesheet" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-dropdown/2.0.3/jquery.dropdown.min.css">
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
 
 
 </head>
 
 <body id="page-top">
 
-  <!-- Navigation -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
     <div class="container">
-      <a class="navbar-brand js-scroll-trigger" href="#page-top">Home</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarResponsive">
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="#dataviz1">Tweet Toxicity</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link js-scroll-trigger" href="scoreboard.html">Top Toxic Tweets</a>
-          </li>
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link js-scroll-trigger" href="#dataviz2">Gender Visualization</a>-->
-<!--          </li>-->
-<!--          <li class="nav-item">-->
-<!--            <a class="nav-link js-scroll-trigger" href="#dataviz3">Toxicity/Identity Attacks</a>-->
-<!--          </li>-->
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <header class="bg-primary text-white">
-    <div class="container text-center">
-      <h1>Political Toxicity on Twitter</h1>
-      <p class="lead">Visualizations of Toxicity in Tweets</p>
-      <p class="lead"></p>
-    </div>
-  </header>
-  <section id="about">
-  <div class="container">
-        <div class="row">
-          <div class="col-lg-10 mx-auto">
-            <h2>About the Project</h2>
-            <p class="lead">This project displays data visualizations about toxicity on Twitter for various high profile politicians.
-              The data was collected by querying the Twitter API periodically and dates back to early 2019.
-              We queried the Twitter API and searched for key words including the politician's first and last name and their twitter handles.
-              In order to get information about the sentiment of the tweet, we used the <a href="http://www.perspectiveapi.com/">Perspective API</a>, an API used to detect abuse and harassment online.
-              Perspective API has the ability to detect multiple attributes. We used <em>toxicity, identity attack,</em> and <em>sexually explicit</em>.
-              Perspective API takes comment text as input and returns a "score" from 0 to 1 that indicates the probability that the comment is similar to toxic comments it's seen in the past.
-              A score of 0 signifies 0% probability that the comment is toxic, a score of 1 signifies 100% probability that the comment is toxic,
-              and a score of 0.5 signifies a 50% probability that the comment is toxic (i.e., that the model is not sure).
-
-              It should be noted that there are <a href="https://medium.com/the-false-positive/unintended-bias-and-names-of-frequently-targeted-groups-8e0b81f80a23">known unintended biases</a> within the Perspective API.
-            </p>
-
-          </div>
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Home</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#dataviz1">Tweet Toxicity</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="scoreboard.html">Top Toxic Tweets</a>
+                </li>
+                <!--          <li class="nav-item">-->
+                <!--            <a class="nav-link js-scroll-trigger" href="#dataviz2">Gender Visualization</a>-->
+                <!--          </li>-->
+                <!--          <li class="nav-item">-->
+                <!--            <a class="nav-link js-scroll-trigger" href="#dataviz3">Toxicity/Identity Attacks</a>-->
+                <!--          </li>-->
+            </ul>
         </div>
-      </div>
-  </section>
+    </div>
+</nav>
+
+<header class="bg-primary text-white">
+    <div class="container text-center">
+        <h1>Political Toxicity on Twitter</h1>
+        <p class="lead">Visualizations of Toxicity in Tweets</p>
+        <p class="lead"></p>
+    </div>
+</header>
+<section id="about">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h2>About the Project</h2>
+                <p class="lead">This project displays data visualizations about toxicity on Twitter for various high
+                    profile politicians.
+                    The data was collected by querying the Twitter API periodically and dates back to early 2019.
+                    We queried the Twitter API and searched for key words including the politician's first and last name
+                    and their twitter handles.
+                    In order to get information about the sentiment of the tweet, we used the <a
+                            href="http://www.perspectiveapi.com/">Perspective API</a>, an API used to detect abuse and
+                    harassment online.
+                    Perspective API has the ability to detect multiple attributes. We used <em>toxicity, identity
+                        attack,</em> and <em>sexually explicit</em>.
+                    Perspective API takes comment text as input and returns a "score" from 0 to 1 that indicates the
+                    probability that the comment is similar to toxic comments it's seen in the past.
+                    A score of 0 signifies 0% probability that the comment is toxic, a score of 1 signifies 100%
+                    probability that the comment is toxic,
+                    and a score of 0.5 signifies a 50% probability that the comment is toxic (i.e., that the model is
+                    not sure).
+
+                    It should be noted that there are <a
+                            href="https://medium.com/the-false-positive/unintended-bias-and-names-of-frequently-targeted-groups-8e0b81f80a23">known
+                        unintended biases</a> within the Perspective API.
+                </p>
+
+            </div>
+        </div>
+    </div>
+</section>
 <section id="dataviz1">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-12 mx-auto">
-          <h2>Toxic Tweets about Leading Politicians</h2>
-          <p class="lead">Comparing the different levels of toxic, flirtatious, and identity attack tweets against politicians. Click on the legend to pick which attributes to see.</p>
-          <div class="form-group mx-sm-3 mb-2">
-          <select class="form-control" id="combo">
-                <option value="Ocasio-Cortez">Alexandria Ocasio-Cortez</option>
-                <option value="Biden">Joe Biden</option>
-                <option value="Sanders">Bernie Sanders</option>
-                <option value="Warren">Elizabeth Warren</option>
-                <option value="Buttigieg">Pete Buttigieg</option>
-                <option value="McConnell">Mitch McConnell</option>
-                <option value="Trump">Donald Trump</option>
-            </select>
-          <input id="button1" class="btn btn-info" type="button" value="Choose Politician" />
-           <br><br>
-          <input id="date_tweets_field" data-provide="datepicker">
-          <input id="date_tweets" class="btn btn-info" type="button" value="Choose Date"/>
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <h2>Toxic Tweets about Leading Politicians</h2>
+                <p class="lead">Comparing the different levels of toxic, flirtatious, and identity attack tweets against
+                    politicians. Click on the legend to pick which attributes to see.</p>
+                <div class="form-group mx-sm-3 mb-2">
+                    <select class="form-control" id="combo">
+                        <option value="Ocasio-Cortez">Alexandria Ocasio-Cortez</option>
+                        <option value="Biden">Joe Biden</option>
+                        <option value="Sanders">Bernie Sanders</option>
+                        <option value="Warren">Elizabeth Warren</option>
+                        <option value="Buttigieg">Pete Buttigieg</option>
+                        <option value="McConnell">Mitch McConnell</option>
+                        <option value="Trump">Donald Trump</option>
+                    </select>
+                    <input id="button1" class="btn btn-info" type="button" value="Choose Politician"/>
+                    <br><br>
+                    <input id="date_tweets_field" data-provide="datepicker">
+                    <input id="date_tweets" class="btn btn-info" type="button" value="Choose Date"/>
+                </div>
+                <div id="data1">
+                </div>
+                <p>
+                    In this graph we can see that attacks against female politicians are different than their male
+                    counterparts. Elizabeth Warren, Alexandria Ocasio-Cortez and Nancy Pelosi are more likely to have
+                    higher levels of identity attacks or flirtatious tweets when they are mentioned on twitter. However,
+                    Joe Biden had a higher level of sexually-explicit twitter mentions than Bernie Sanders— mostly based
+                    on sexual harassment and abuse allegations against the Democratic presidential candidate. All of the
+                    politicians had similar levels of toxicity among twitter mentions, which demonstrates that toxicity
+                    on Twitter is not always gender-based.
+                </p>
             </div>
-          <div id="data1">
-          </div>
-          <p>
-              A theme that emerged was the difference in attacks against male and female politicians. Female politicians are far more likely to have high identity attacks or flirtatious
-            tweets when they are being spoken about online. All the politicians had similar levels of toxic tweets, surprisingly showing that toxicity on Twitter does not discriminate by gender.
-          </p>
         </div>
-      </div>
     </div>
-  </section>
+</section>
 
 <!--  <section id="dataviz2" class="bg-light">-->
 <!--    <div class="container">-->
@@ -138,76 +156,80 @@
 <!--    </div>-->
 <!--  </section>  -->
 
-  <section id="dataviz2" class="bg-light">
+<section id="dataviz2" class="bg-light">
     <div class="container">
-      <div class="row">
-        <div class="col-lg-10 mx-auto">
-          <h2>Frequency of Toxic Tweets</h2>
-          <p class="lead">Absolute frequency of toxic tweets by politician. A toxic tweet has a .7 or higher toxicity score.</p>
-          <button id="toggle" type="submit" class="btn btn-info mb-2">Toggle Percentage/Absolute</button>
-          <div id="data2">
-          </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h2>Frequency of Toxic Tweets</h2>
+                <p class="lead">Absolute frequency of toxic tweets by politician. A toxic tweet has a .7 or higher
+                    toxicity score.</p>
+                <button id="toggle" type="submit" class="btn btn-info mb-2">Toggle Percentage/Absolute</button>
+                <div id="data2">
+                </div>
 
+            </div>
         </div>
     </div>
-    </div>
-  </section>
+</section>
 
-  <section id="dataviz3">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 mx-auto">
-         <h2>Toxicity vs Identity Attack</h2>
-          <p>To learn more about the ways toxicity and identity attacks interact with each other, we plotted each tweets identity attack score vs its toxicity score.
-          You can see that while most Tweets are in the bottom right, there are a fair few that are both very toxic and have a large identity attack.</p>
-          <p class="lead"><a href="toxid.html">Click to view interactive version</a></p>
-          <a href="toxid.html">
-             <img alt="Qries" src="preview.png">
-          </a>
-          </div>
-      </div>
-    </div>
-  </section>
-
-
-  <section id="dataviz4" class="bg-light">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-10 mx-auto">
-          <h2>Toxicity By Gender</h2>
-          <p class="lead">Proportion of toxic tweets by gender. A toxic tweet has a .7 or higher toxicity score.</p>
-           <select class="form-control" id="combo">
-                <option value="2019">2019</option>
-                <option value="2020">2020</option>
-          </select>
-          <input id="starting_date_tweets" type="button" value="Choose Date"/>
-          <div id="data4">
-          </div>
-
-        </div>
-    </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="py-5 bg-dark">
+<!--<section id="dataviz3">-->
 <!--    <div class="container">-->
-<!--      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-10 mx-auto">-->
+<!--                <h2>Toxicity vs Identity Attack</h2>-->
+<!--                <p>To learn more about the ways toxicity and identity attacks interact with each other, we plotted each-->
+<!--                    tweets identity attack score vs its toxicity score.-->
+<!--                    You can see that while most Tweets are in the bottom right, there are a fair few that are both very-->
+<!--                    toxic and have a large identity attack.</p>-->
+<!--                <p class="lead"><a href="toxid.html">Click to view interactive version</a></p>-->
+<!--                <a href="toxid.html">-->
+<!--                    <img alt="Qries" src="preview.png">-->
+<!--                </a>-->
+<!--            </div>-->
+<!--        </div>-->
 <!--    </div>-->
+<!--</section>-->
+
+
+<section id="dataviz4" class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <h2>Toxicity By Gender</h2>
+                <p class="lead">Proportion of toxic tweets by gender. A toxic tweet has a .7 or higher toxicity
+                    score.</p>
+                <select class="form-control" >
+                    <option value="2019">2019</option>
+                    <option value="2020">2020</option>
+                </select>
+                <input id="starting_date_tweets" type="button" value="Choose Date"/>
+                <div id="data4">
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <!--    <div class="container">-->
+    <!--      <p class="m-0 text-center text-white">Copyright &copy; Your Website 2019</p>-->
+    <!--    </div>-->
     <!-- /.container -->
-  </footer>
+</footer>
 
-  <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="js/script.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
 
-  <!-- Plugin JavaScript -->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+<!-- Plugin JavaScript -->
+<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
 
-  <!-- Custom JavaScript for this theme -->
-  <script src="js/scrolling-nav.js"></script>
+<!-- Custom JavaScript for this theme -->
+<script src="js/scrolling-nav.js"></script>
 
 </body>
 
