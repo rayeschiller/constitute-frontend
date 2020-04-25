@@ -91,8 +91,8 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-12 mx-auto">
-          <h2>Toxic Tweets about Leading Politicians</h2>
-          <p class="lead">Comparing the different levels of toxic, flirtatious, and identity attack tweets against politicians. Click on the legend to pick which attributes to see.</p>
+          <h2>Graph A: Toxicity levels in tweets about leading democrats</h2>
+          <p class="lead">Comparing the levels of toxic, flirtatious, and identity attack tweets against five leading democratic politicians. Use the legend to choose which politician’s twitter mentions you would like to browse. </p>
           <div class="form-group mx-sm-3 mb-2">
           <select class="form-control" id="combo">
                 <option value="Ocasio-Cortez">Alexandria Ocasio-Cortez</option>
@@ -111,8 +111,7 @@
           <div id="data1">
           </div>
           <p>
-              A theme that emerged was the difference in attacks against male and female politicians. Female politicians are far more likely to have high identity attacks or flirtatious
-            tweets when they are being spoken about online. All the politicians had similar levels of toxic tweets, surprisingly showing that toxicity on Twitter does not discriminate by gender.
+              In Graph A we can see that attacks against female politicians are different than their male counterparts. Elizabeth Warren, Alexandria Ocasio-Cortez and Nancy Pelosi are more likely to have higher levels of identity attacks or flirtatious tweets when they are mentioned on twitter. However, Joe Biden had a higher level of sexually-explicit twitter mentions than Bernie Sanders— mostly based on sexual harassment and abuse allegations against the Democratic presidential candidate. All of the politicians had similar levels of toxicity among twitter mentions, which demonstrates that toxicity on Twitter is not always gender-based.
           </p>
         </div>
       </div>
@@ -142,11 +141,19 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-10 mx-auto">
-          <h2>Frequency of Toxic Tweets</h2>
-          <p class="lead">Absolute frequency of toxic tweets by politician. A toxic tweet has a .7 or higher toxicity score.</p>
+          <h2> Graph B: Toxic Tweets Directed at Politicians</h2>
+          <p class="lead">Toggle between two views: absolute number of tweets directed at politicians categorized as “toxic,” “sexually explicit” or “identity attack”; and number of tweets directed at politicians for each category as a percentage of all tweets directed at the politician.
+</p>
           <button id="toggle" type="submit" class="btn btn-info mb-2">Toggle Percentage/Absolute</button>
           <div id="data2">
           </div>
+          <p>Graph B shows the absolute number of tweets that were tweeted “@username” for each politician.  For example, tweets counted for Chuck Schumer would be any tweet that was tweeted @SenSchumer or included his full name in the tweet. </p>
+
+<p>Using a language processing API, we categorized each tweet, if applicable, into one of the three categories shown: toxicity, sexually explicit or identity attack. The two views represent total tweets (absolute value of tweets defined as “toxic,” “sexually explicit” or “identity attack” according to the API) or proportional tweets (number of tweets defined as “toxic,” “sexually explicit” and “identity attack” divided by total tweets).</p>
+
+<p>For politicians in the chart above, both House Speaker Nancy Pelosi and President Donald Trump have high levels of generally toxic tweets directed at them, with 14% and 12% of tweets categorized as toxic, respectively. Representative Ocasio-Cortez and Senator Harris both had 4% of tweets directed at them fall into the “identity attack” bucket.</p>
+
+<p>Of the men and women shown on this chart, 5% of tweets directed at presumptive Democratic Party Nominee Joe Biden were defined as “sexually explicit,” compared to 2% for Pete Buttigieg, 3% for Bernie Sanders and 2% for Kamala Harris. Both highest scorers for the “sexually explicit” categories were men. </p>
 
         </div>
     </div>
