@@ -42,10 +42,14 @@ function get_top_tweets(){
 
 function tweet_card(tweet){
     let cardTemplate = [
-        '<div class="card">',
-        // '<p> Tweet is: ',
+        '<div class="card p-3 text-left" style="width: 18rem;>',
+        '<div class="card-body">',
+        '<h5 class="card-subtitle mb-2 text-muted">Score:',
+        tweet.toxicity,
+        '</h5>',
+        '<p class="card-text">',
         tweet.text || 'cant find text',
-        '</p></div>'
+        '</p></div></div>'
     ];
     return $(cardTemplate.join(''));
 }
