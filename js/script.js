@@ -230,7 +230,7 @@ function toxicity_by_gender(year) {
             };
      $.ajax({
         type: "GET",
-        url: "https://constitute.herokuapp.com/tweets/?format=json" + q_year +'&politician__gender=Female'
+        url: "https://constitute.herokuapp.com/tweets/?format=json" + q_year +'&politician__gender=Female',
         dataType: "json",
         success: function (result, status, xhr) {
             female_dates, female_data = get_toxicity_per_day(result, status, xhr)
