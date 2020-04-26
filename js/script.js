@@ -130,16 +130,17 @@ $(document).ready(function () {
     
     let x_var = "toxicity";
     let y_var = "identity_attack";
+    let date;
     create_attribute_chart(today, x_var, y_var);
     $('#attribute_btn').click(function () {
         x_var = $('#x_var :selected').val();
         y_var = $('#y_var :selected').val();
-        create_attribute_chart(today, x_var, y_var, DATA3);
+        create_attribute_chart(today, x_var, y_var);
     });
     //Change graph depending on date
     $('#date_select').click(function () {
         console.log("click");
-        let date = $('#date_input').val();
+        date = $('#date_input').val();
         create_attribute_chart(new Date(date), x_var, y_var);
     });
 
@@ -211,7 +212,6 @@ function create_attribute_chart(query_date, x_var, y_var) {
         success: function (result, status, xhr) {
 
             let data = result.results;
-            console.log(data);
             let x_data = [];
             let y_data = [];
            
@@ -222,6 +222,10 @@ function create_attribute_chart(query_date, x_var, y_var) {
                 texts.push(get_newline_text(data[i].text));
                 
             }
+            // if (data.length === 0) {
+            //     document.getElementById("#error_msg").innerHTML = "Data not available for this date.";
+            //     return;
+            // }
             let attr_trace = create_trace(x_data, y_data, "Toxicity", 'markers', texts);
             const layout = {
                 yaxis: {
