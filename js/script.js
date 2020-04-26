@@ -186,74 +186,81 @@ function get_newline_text(text) {
 
 
 
-function get_year(year) {
-    let gt_year = parseInt(year) - 1;
-    let lt_year = parseInt(year) + 1;
-    return "&created_at__year__lt=" + lt_year + "&created_at__year__gt=" + gt_year
-}
-function toxicity_by_gender(year) {
-    let q_year = get_year(year);
-    console.log(q_year);
-    let female_data, female_dates, male_data, male_dates;
-    let female_trace, male_trace
-    const layout = {
-                yaxis: {
-                    range: [0, 1]
-                },
-                title: 'Toxicity Over Time by Gender',
-                xaxis: {
-                    title: {
-                        text: 'Date'
-                    },
-                },
-                yaxis: {
-                    title: {
-                        text: 'Toxicity Level'
-                    }
-                }
-            };
-     $.ajax({
-        type: "GET",
-        url: "https://constitute.herokuapp.com/tweets/?format=json" + q_year +'&politician__gender=Female',
-        dataType: "json",
-        success: function (result, status, xhr) {
-            console.log("result")
-            female_dates, female_data = get_toxicity_per_day(result, status, xhr)
-            female_trace = create_trace(female_dates, female_data)
-            Plotly.newPlot(DATA4, female_trace, layout);
-        },
-        error: function (xhr, status, error) {
-            console.log("Error: " + error);
-        }
-    });
+// function get_year(year) {
+//     let gt_year = parseInt(year) - 1;
+//     let lt_year = parseInt(year) + 1;
+//     return "&created_at__year__lt=" + lt_year + "&created_at__year__gt=" + gt_year
+// }
+// function toxicity_by_gender(year) {
+//     console.log("year")
+//     console.log(year)
+//     let q_year = get_year(year);
+//     console.log(q_year);
+//     let female_data, female_dates, male_data, male_dates;
+//     let female_trace, male_trace
+//     const layout = {
+//                 yaxis: {
+//                     range: [0, 1]
+//                 },
+//                 title: 'Toxicity Over Time by Gender',
+//                 xaxis: {
+//                     title: {
+//                         text: 'Date'
+//                     },
+//                 },
+//                 yaxis: {
+//                     title: {
+//                         text: 'Toxicity Level'
+//                     }
+//                 }
+//             };
+//      $.ajax({
+//         type: "GET",
+//         url: "https://constitute.herokuapp.com/tweets/?format=json" + q_year +'&politician__gender=Female',
+//         dataType: "json",
+//         success: function (result, status, xhr) {
+//             female_dates, female_data = get_toxicity_per_day(result, status, xhr)
+//             console.log(female_data);
+//             female_trace = create_trace(female_dates, female_data)
+//             Plotly.newPlot(DATA4, female_trace, layout);
+//         },
+//         error: function (xhr, status, error) {
+//             console.log("Error: " + error);
+//         }
+//     });
 
-}
+// }
 
-function get_toxicity_per_day(result, status, xhr) {
-            let total = result.count
-            let obj_dates = {}
-            let data = result.results;
-            for (let i = 0; i < data.length; i++) {
-                let date = data[i].date.substring(0,10)
-                if (obj_dates.hasOwnProperty(date)) {
-                    if (data[i].toxicity > 0.7) {
-                        obj_dates[date].push(data[i].toxicity)
-                    }
-                } else {
-                    if (data[i].toxicity > 0.7) {
-                        obj_dates[date] = [data[i].toxicity]
-                    }
-                }
-            }
-            let tox_per_day = []
-            let dates = Object.keys(obj_dates)
-            tox_values = Object.values(obj_dates)
-            for (const v in tox_values) {
-                tox_per_day.push(v.length/total)
-            }
-            return dates, tox_per_day
+// function get_toxicity_per_day(result, status, xhr) {
+//             let total = result.count
+//             let obj_dates = {}
+//             let data = result.results;
+//             for (let i = 0; i < data.length; i++) {
+//                 let date = data[i].date.substring(0,10)
+//                 if (obj_dates.hasOwnProperty(date)) {
+//                     obj_dates[date].total += 1
+//                     if (data[i].toxicity > 0.7) {
+//                         obj_dates[date].toxic += 1
+//                     } 
+//                 } else {
+//                     if (data[i].toxicity > 0.7) {
+//                         obj_dates[date] = {total: 1, toxic: 1}
+//                     } else {
+//                         obj_dates[date] = {total: 1, toxic: 0}
+//                     }
+//                 }
+//             }
+//             let tox_per_day = []
+//             let dates = Object.keys(obj_dates)
+        
+
+//             for (const v in obj_dates) {
+//                 console.log(v);
+//                 tox_per_day.push(v.toxic/v.total)
+//             }
+//             return dates, tox_per_day
             
-            // Plotly.newPlot(DATA2, data);
-}
+//             // Plotly.newPlot(DATA2, data);
+// }
 
 
