@@ -125,12 +125,28 @@ $(document).ready(function () {
             toggle = false
         }
 
-    })
-
-    $('#starting_date_tweets').click(function () {
-        year = $('#year_choice :selected').val();
-        toxicity_by_gender(year);
     });
+
+    
+    let x_var = "toxicity";
+    let y_var = "identity_attack";
+    create_attribute_chart(today, x_var, y_var);
+    $('#attribute_btn').click(function () {
+        x_var = $('#x_var :selected').val();
+        y_var = $('#y_var :selected').val();
+        create_attribute_chart(today, x_var, y_var, DATA3);
+    });
+    //Change graph depending on date
+    $('#date_select').click(function () {
+        console.log("click");
+        let date = $('#date_input').val();
+        create_attribute_chart(new Date(date), x_var, y_var);
+    });
+
+    // $('#starting_date_tweets').click(function () {
+    //     year = $('#year_choice :selected').val();
+    //     toxicity_by_gender(year);
+    // });
     // $('#date_gender').click(function(){
     //     let date = $('#date_gender_field').val();
     //     console.log(date);
@@ -183,6 +199,80 @@ function get_newline_text(text) {
     newhtml = newhtml.join(" ");
     return newhtml;
 }
+
+
+function create_attribute_chart(query_date, x_var, y_var) {
+    let q_date = get_date_query(query_date);
+
+    $.ajax({
+        type: "GET",
+        url: "https://constitute.herokuapp.com/tweets/?format=json" + q_date,
+        dataType: "json",
+        success: function (result, status, xhr) {
+
+            let data = result.results;
+            console.log(data);
+            let x_data = [];
+            let y_data = [];
+           
+            let texts = [];
+            for (let i = 0; i < data.length; i++) {
+                x_data.push(parseFloat(data[i][x_var]));
+                y_data.push(parseFloat(data[i][y_var]));
+                texts.push(get_newline_text(data[i].text));
+                
+            }
+            let attr_trace = create_trace(x_data, y_data, "Toxicity", 'markers', texts);
+            const layout = {
+                yaxis: {
+                    range: [0, 1]
+                },
+                xaxis: {
+                    range: [0, 1]
+                },
+                title: y_var.replace("_", " ").replace(y_var[0], y_var[0].toUpperCase()) + " Vs " + x_var.replace("_", " ").replace(x_var[0], x_var[0].toUpperCase()) + " On " + query_date.toString().substring(0,15),
+                xaxis: {
+                    title: {
+                        text: x_var.replace("_", " ").replace(x_var[0], x_var[0].toUpperCase()) + " Score (0-1)"
+                    }
+                },
+                yaxis: {
+                    title: {
+                        text: y_var.replace("_", " ").replace(y_var[0], y_var[0].toUpperCase()) + " Score (0-1)"
+                    }
+                }
+            };
+
+            
+            Plotly.newPlot(DATA3, [attr_trace], layout);
+        },
+        error: function (xhr, status, error) {
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+        }
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

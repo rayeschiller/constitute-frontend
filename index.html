@@ -196,6 +196,38 @@
     </div>
 </section>
 
+<section id="dataviz3" class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <h2>Graph C: Comparing Attributes</h2>
+                <p class="lead">In order to understand how the attributes sexually explicit, identity attack, and toxic interact with each other, select the attributes you wish to plot.</p>
+                <div class="form-group mx-sm-3 mb-2">
+                    <select class="form-control" id="x_var">
+                        <option value="toxicity">Toxicity</option>
+                        <option value="identity_attack">Identity Attack</option>
+                        <option value="sexually_explicit">Sexually Explicit</option>   
+                    </select>
+                    <select class="form-control" id="y_var">
+                        <option value="identity_attack">Identity Attack</option>
+                        <option value="toxicity">Toxicity</option>
+
+                        <option value="sexually_explicit">Sexually Explicit</option>   
+                    </select>
+                    <input id="attribute_btn" class="btn btn-info" type="button" value="Choose Attributes"/>
+                    <br><br>
+                    <input id="date_input" data-provide="datepicker">
+                    <input id="date_select" class="btn btn-info" type="button" value="Choose Date"/>
+                </div>
+
+                <div id="data3">
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
 <!--<section id="dataviz3">-->
 <!--    <div class="container">-->
 <!--        <div class="row">-->
