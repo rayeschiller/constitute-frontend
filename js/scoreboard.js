@@ -31,7 +31,7 @@ $(document).ready(function () {
 function get_top_tweets(attribute, gtv){
      $.ajax({
         type: "GET",
-        url: "https://constitute.herokuapp.com/tweets/?format=json&" + attribute + "__gt=" + gtv,
+        url: "https://constitute.herokuapp.com/tweets/?format=json&" + attribute + "__gt=" + gtv + "&ordering=-" + attribute,
         dataType: "json",
         success: function (result, status, xhr) {
             console.log(result);
