@@ -101,21 +101,21 @@ $(document).ready(function () {
     //Make initial tweets graph
     let last_name = "Ocasio-Cortez";
     let today = new Date();
+    $('#date_tweets_field').attr("placeholder", today);
     create_tweet_chart(last_name, today);
     let toggle=false;
     toxicity_frequency(toggle);
-    // create_gender_chart(today);
     //Change graph depending on politician
+    //Change graph depending on date
     $('#button1').click(function () {
         last_name = $('#combo :selected').val();
         create_tweet_chart(last_name, today, DATA1);
     });
-    //Change graph depending on date
     $('#date_tweets').click(function () {
         let date = $('#date_tweets_field').val();
         create_tweet_chart(last_name, new Date(date))
-    });
 
+    });
     $('#toggle').click(function () {
         if (toggle === false) {
             toxicity_frequency(true);
@@ -123,14 +123,9 @@ $(document).ready(function () {
         } else {
             toxicity_frequency(false);
             toggle = false
-        }
 
-    })
-    // $('#date_gender').click(function(){
-    //     let date = $('#date_gender_field').val();
-    //     console.log(date);
-    //     create_gender_chart(new Date(date))
-    // });
+        }
+    });
 });
 
 

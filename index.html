@@ -104,12 +104,13 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mx-auto">
-                <h2>Graph A: Toxicity levels in Tweets</h2>
+                <h2>Toxicity levels in Tweets</h2>
                 <p class="lead">Comparing the levels of toxic, flirtatious, and identity attack tweets against five
-                    leading democratic politicians. Use the legend to choose which politician’s twitter mentions you
+                    leading democratic politicians.
+                    Use the legend to choose which politician’s twitter mentions you
                     would like to browse. </p>
-                <div class="form-group mx-sm-3 mb-2">
-                    <select class="form-control" id="combo">
+                <div class="form-group mx-sm-3 mb-2 form-row">
+                    <select class="form-control" style="width:auto;" id="combo">
                         <option value="Ocasio-Cortez">Alexandria Ocasio-Cortez</option>
                         <option value="Biden">Joe Biden</option>
                         <option value="Sanders">Bernie Sanders</option>
@@ -119,24 +120,27 @@
                         <option value="Trump">Donald Trump</option>
                     </select>
                     <input id="button1" class="btn btn-info" type="button" value="Choose Politician"/>
-                    <br><br>
-                    <input id="date_tweets_field" data-provide="datepicker">
+                </div>
+                <div class="form-group mx-sm-3 mb-2 form-row">
+                    <input class="form-control" style="width:auto;" id="date_tweets_field"
+                           data-provide="datepicker">
                     <input id="date_tweets" class="btn btn-info" type="button" value="Choose Date"/>
                 </div>
 
-                <div id="data1">
-                </div>
-                <p>
-                    In Graph A we can see that attacks against female politicians are different than their male
-                    counterparts. Elizabeth Warren, Alexandria Ocasio-Cortez and Nancy Pelosi are more likely to have
-                    higher levels of identity attacks or flirtatious tweets when they are mentioned on twitter. However,
-                    Joe Biden had a higher level of sexually-explicit twitter mentions than Bernie Sanders — mostly
-                    based on sexual harassment and abuse allegations against the Democratic presidential candidate. All
-                    of the politicians had similar levels of toxicity among twitter mentions, which demonstrates that
-                    toxicity on Twitter is not always gender-based.
-                </p>
+
+            <div id="data1">
             </div>
+            <p>
+                In this graph, we can see that attacks against female politicians are different than their male
+                counterparts. Elizabeth Warren, Alexandria Ocasio-Cortez and Nancy Pelosi are more likely to have
+                higher levels of identity attacks or flirtatious tweets when they are mentioned on Twitter. However,
+                Joe Biden had a higher level of sexually-explicit twitter mentions than Bernie Sanders — mostly
+                based on sexual harassment and abuse allegations against the Democratic presidential candidate. All
+                of the politicians had similar levels of toxicity among twitter mentions, which demonstrates that
+                toxicity on Twitter is not always gender-based.
+            </p>
         </div>
+    </div>
     </div>
 </section>
 
@@ -163,19 +167,17 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mx-auto">
-                <h2> Graph B: Toxic Tweets Directed at Politicians</h2>
-                <p class="lead">Toggle between two views: absolute number of tweets directed at politicians categorized
-                    as “toxic,” “sexually explicit” or “identity attack”; and number of tweets directed at politicians
-                    for each category as a percentage of all tweets directed at the politician.
+                <h2> Percentage of Political Toxic Tweets </h2>
+                <p class="lead">Toggle between absolute number and percentage of toxic tweets directed at each politician.
                 </p>
                 <button id="toggle" type="submit" class="btn btn-info mb-2">Toggle Percentage/Absolute</button>
                 <div id="data2">
                 </div>
-                <p>Graph B shows the absolute number of tweets that were tweeted “@username” for each politician. For
+                <p>This graph shows the absolute number of tweets that were tweeted “@username” for each politician. For
                     example, tweets counted for Chuck Schumer would be any tweet that was tweeted @SenSchumer or
                     included his full name in the tweet. </p>
 
-                <p>Using a language processing API, we categorized each tweet, if applicable, into one of the three
+                <p>Using Perspective API, we categorized each tweet, if applicable, into one of the three
                     categories shown: toxicity, sexually explicit or identity attack. The two views represent total
                     tweets (absolute value of tweets defined as “toxic,” “sexually explicit” or “identity attack”
                     according to the API) or proportional tweets (number of tweets defined as “toxic,” “sexually
