@@ -198,6 +198,39 @@
     </div>
 </section>
 
+<section id="dataviz3" class="bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
+                <h2>Graph C: Comparing Attributes</h2>
+                <p class="lead">In order to understand how the attributes sexually explicit, identity attack, and toxic interact with each other, select the attributes you wish to plot.</p>
+                
+                <div class="form-group mx-sm-6 mb-2">
+
+                    <select class="form-control" id="x_var">
+                        <option value="toxicity">Toxicity</option>
+                        <option value="identity_attack">Identity Attack</option>
+                        <option value="sexually_explicit">Sexually Explicit</option>   
+                    </select>
+                    <select class="form-control" id="y_var">
+                        <option value="identity_attack">Identity Attack</option>
+                        <option value="toxicity">Toxicity</option>
+                        <option value="sexually_explicit">Sexually Explicit</option>   
+                    </select>
+                    <input id="attribute_btn" class="btn btn-info" type="button" value="Choose Attributes"/>
+                    <br><br>
+                    <input id="date_input" data-provide="datepicker">
+                    <input id="date_select" class="btn btn-info" type="button" value="Choose Date"/>
+                </div>
+<!--                 <p id="error_msg"></p>
+ -->                <div id="data3">
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</section>
+
 <!--<section id="dataviz3">-->
 <!--    <div class="container">-->
 <!--        <div class="row">-->
@@ -216,26 +249,6 @@
 <!--    </div>-->
 <!--</section>-->
 
-
-<section id="dataviz4" class="bg-light">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <h2>Toxicity By Gender</h2>
-                <p class="lead">Proportion of toxic tweets by gender. A toxic tweet has a .7 or higher toxicity
-                    score.</p>
-                <select class="form-control">
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                </select>
-                <input id="starting_date_tweets" type="button" value="Choose Date"/>
-                <div id="data4">
-                </div>
-
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- Footer -->
 <footer class="py-5 bg-dark">

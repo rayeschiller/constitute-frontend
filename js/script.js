@@ -123,9 +123,37 @@ $(document).ready(function () {
         } else {
             toxicity_frequency(false);
             toggle = false
-
         }
     });
+
+
+    
+    let x_var = "toxicity";
+    let y_var = "identity_attack";
+    let date;
+    create_attribute_chart(today, x_var, y_var);
+    $('#attribute_btn').click(function () {
+        x_var = $('#x_var :selected').val();
+        y_var = $('#y_var :selected').val();
+        create_attribute_chart(today, x_var, y_var);
+    });
+    //Change graph depending on date
+    $('#date_select').click(function () {
+        console.log("click");
+        date = $('#date_input').val();
+        create_attribute_chart(new Date(date), x_var, y_var);
+    });
+
+    // $('#starting_date_tweets').click(function () {
+    //     year = $('#year_choice :selected').val();
+    //     toxicity_by_gender(year);
+    // });
+    // $('#date_gender').click(function(){
+    //     let date = $('#date_gender_field').val();
+    //     console.log(date);
+    //     create_gender_chart(new Date(date))
+    // });
+
 });
 
 
@@ -175,84 +203,159 @@ function get_newline_text(text) {
 }
 
 
-    // $("#starting_date_field").datepicker({
-    // format: "yyyy",
-    // viewMode: "years", 
-    // minViewMode: "years"
-    // });
+function create_attribute_chart(query_date, x_var, y_var) {
+    let q_date = get_date_query(query_date);
 
-    $('#starting_date_tweets').click(function () {
-        let year = $('#starting_date_field').val();
-        toxicity_by_gender(year)
-    });
+    $.ajax({
+        type: "GET",
+        url: "https://constitute.herokuapp.com/tweets/?format=json" + q_date,
+        dataType: "json",
+        success: function (result, status, xhr) {
 
-function get_year(year) {
-    let gt_year = parseInt(year) - 1;
-    let lt_year = parseInt(year) + 1;
-    return "&created_at__year__lt=" + lt_year + "&created_at__year__gt=" + gt_year
-}
-function toxicity_by_gender(year) {
-    let q_year = get_year(year);
-    let female_data, female_dates, male_data, male_dates;
-    let female_trace, male_trace
-    const layout = {
+            let data = result.results;
+            let x_data = [];
+            let y_data = [];
+           
+            let texts = [];
+            for (let i = 0; i < data.length; i++) {
+                x_data.push(parseFloat(data[i][x_var]));
+                y_data.push(parseFloat(data[i][y_var]));
+                texts.push(get_newline_text(data[i].text));
+                
+            }
+            // if (data.length === 0) {
+            //     document.getElementById("#error_msg").innerHTML = "Data not available for this date.";
+            //     return;
+            // }
+            let attr_trace = create_trace(x_data, y_data, "Toxicity", 'markers', texts);
+            const layout = {
                 yaxis: {
                     range: [0, 1]
                 },
-                title: 'Toxicity Over Time by Gender',
+                xaxis: {
+                    range: [0, 1]
+                },
+                title: y_var.replace("_", " ").replace(y_var[0], y_var[0].toUpperCase()) + " Vs " + x_var.replace("_", " ").replace(x_var[0], x_var[0].toUpperCase()) + " On " + query_date.toString().substring(0,15),
                 xaxis: {
                     title: {
-                        text: 'Date'
-                    },
+                        text: x_var.replace("_", " ").replace(x_var[0], x_var[0].toUpperCase()) + " Score (0-1)"
+                    }
                 },
                 yaxis: {
                     title: {
-                        text: 'Toxicity Level'
+                        text: y_var.replace("_", " ").replace(y_var[0], y_var[0].toUpperCase()) + " Score (0-1)"
                     }
                 }
             };
-     $.ajax({
-        type: "GET",
-        url: "https://constitute.herokuapp.com/tweets/?format=json" + q_year +'&politician__gender=Female',
-        dataType: "json",
-        success: function (result, status, xhr) {
-            console.log("result")
-            female_dates, female_data = get_toxicity_per_day(result, status, xhr)
-            female_trace = create_trace(female_dates, female_data)
-            Plotly.newPlot(DATA4, female_trace, layout);
+
+            
+            Plotly.newPlot(DATA3, [attr_trace], layout);
         },
         error: function (xhr, status, error) {
-            console.log("Error: " + error);
+            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
         }
     });
-
 }
 
-function get_toxicity_per_day(result, status, xhr) {
-            let total = result.count
-            let obj_dates = {}
-            let data = result.results;
-            for (let i = 0; i < data.length; i++) {
-                let date = data[i].date.substring(0,10)
-                if (obj_dates.hasOwnProperty(date)) {
-                    if (data[i].toxicity > 0.7) {
-                        obj_dates[date].push(data[i].toxicity)
-                    }
-                } else {
-                    if (data[i].toxicity > 0.7) {
-                        obj_dates[date] = [data[i].toxicity]
-                    }
-                }
-            }
-            let tox_per_day = []
-            let dates = Object.keys(obj_dates)
-            tox_values = Object.values(obj_dates)
-            for (const v in tox_values) {
-                tox_per_day.push(v.length/total)
-            }
-            return dates, tox_per_day
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function get_year(year) {
+//     let gt_year = parseInt(year) - 1;
+//     let lt_year = parseInt(year) + 1;
+//     return "&created_at__year__lt=" + lt_year + "&created_at__year__gt=" + gt_year
+// }
+// function toxicity_by_gender(year) {
+//     console.log("year")
+//     console.log(year)
+//     let q_year = get_year(year);
+//     console.log(q_year);
+//     let female_data, female_dates, male_data, male_dates;
+//     let female_trace, male_trace
+//     const layout = {
+//                 yaxis: {
+//                     range: [0, 1]
+//                 },
+//                 title: 'Toxicity Over Time by Gender',
+//                 xaxis: {
+//                     title: {
+//                         text: 'Date'
+//                     },
+//                 },
+//                 yaxis: {
+//                     title: {
+//                         text: 'Toxicity Level'
+//                     }
+//                 }
+//             };
+//      $.ajax({
+//         type: "GET",
+//         url: "https://constitute.herokuapp.com/tweets/?format=json" + q_year +'&politician__gender=Female',
+//         dataType: "json",
+//         success: function (result, status, xhr) {
+//             female_dates, female_data = get_toxicity_per_day(result, status, xhr)
+//             console.log(female_data);
+//             female_trace = create_trace(female_dates, female_data)
+//             Plotly.newPlot(DATA4, female_trace, layout);
+//         },
+//         error: function (xhr, status, error) {
+//             console.log("Error: " + error);
+//         }
+//     });
+
+// }
+
+// function get_toxicity_per_day(result, status, xhr) {
+//             let total = result.count
+//             let obj_dates = {}
+//             let data = result.results;
+//             for (let i = 0; i < data.length; i++) {
+//                 let date = data[i].date.substring(0,10)
+//                 if (obj_dates.hasOwnProperty(date)) {
+//                     obj_dates[date].total += 1
+//                     if (data[i].toxicity > 0.7) {
+//                         obj_dates[date].toxic += 1
+//                     } 
+//                 } else {
+//                     if (data[i].toxicity > 0.7) {
+//                         obj_dates[date] = {total: 1, toxic: 1}
+//                     } else {
+//                         obj_dates[date] = {total: 1, toxic: 0}
+//                     }
+//                 }
+//             }
+//             let tox_per_day = []
+//             let dates = Object.keys(obj_dates)
+        
+
+//             for (const v in obj_dates) {
+//                 console.log(v);
+//                 tox_per_day.push(v.toxic/v.total)
+//             }
+//             return dates, tox_per_day
             
-            // Plotly.newPlot(DATA2, data);
-}
+//             // Plotly.newPlot(DATA2, data);
+// }
 
 
