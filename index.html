@@ -45,10 +45,10 @@
                     <a class="nav-link js-scroll-trigger" href="#about">About</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="#dataviz1">Tweet Toxicity</a>
+                    <a class="nav-link js-scroll-trigger" href="#dataviz1">Data Visualizations</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger" href="scoreboard.html">Top Toxic Tweets</a>
+                    <a class="nav-link js-scroll-trigger" href="scoreboard.html">Wall of Shame</a>
                 </li>
                 <!--          <li class="nav-item">-->
                 <!--            <a class="nav-link js-scroll-trigger" href="#dataviz2">Gender Visualization</a>-->
@@ -72,28 +72,36 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-10 mx-auto">
-                <h2>About the Project</h2>
+                <h2>About</h2>
                 <p class="lead">This project displays data visualizations about toxicity on Twitter for various high
                     profile politicians.
-                    The data was collected by querying the Twitter API periodically and dates back to early 2019.
-                    We queried the Twitter API and searched for key words including the politician's first and last name
-                    and their twitter handles.
+                    The data was collected using the Twitter Search API using the politician's first and last name and
+                    Twitter handles as search key words.
                     In order to get information about the sentiment of the tweet, we used the <a
-                            href="http://www.perspectiveapi.com/">Perspective API</a>, an API used to detect abuse and
-                    harassment online.
-                    Perspective API has the ability to detect multiple attributes. We used <em>toxicity, identity
-                        attack,</em> and <em>sexually explicit</em>.</p>
+                            href="http://www.perspectiveapi.com/">Perspective API</a>, an AI powered API used to detect
+                    abuse and
+                    harassment online. Perspective API has the ability to <em>toxicity, identity
+                        attack,</em> and <em>sexually explicit</em> attributes, defined below.</p>
+
+                <p class="lead"><b>Toxicity:</b> Rude, disrespectful, or unreasonable comment that is likely to make
+                    people leave a discussion.</p>
+
+                <p class="lead"><b>Identity Attack:</b> Negative or hateful comments targeting someone because of their
+                    identity.</p>
+
+                <p class="lead"><b>Sexually Explicit:</b> Contains references to sexual acts, body parts, or other lewd
+                    content.</p>
+
+
                 <p class="lead">Perspective API takes comment text as input and returns a "score" from 0 to 1 that
                     indicates the
                     probability that the comment is similar to toxic comments it's seen in the past.
-                    A score of 0 signifies 0% probability that the comment is toxic, a score of 1 signifies 100%
-                    probability that the comment is toxic,
-                    and a score of 0.5 signifies a 50% probability that the comment is toxic (i.e., that the model is
-                    not sure).
+                    A score of 0 signifies 0% probability that the comment is toxic and a score of 1 signifies 100%
+                    probability that the comment is toxic.</p>
 
-                    It should be noted that there are <a
-                            href="https://medium.com/the-false-positive/unintended-bias-and-names-of-frequently-targeted-groups-8e0b81f80a23">known
-                        unintended biases</a> within the Perspective API.
+                <p class="lead"> It is important to note that there are <a
+                        href="https://medium.com/the-false-positive/unintended-bias-and-names-of-frequently-targeted-groups-8e0b81f80a23">known
+                    unintended biases</a> within the Perspective API.
                 </p>
 
             </div>
@@ -104,11 +112,11 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mx-auto">
-                <h2>Toxicity levels in Tweets</h2>
-                <p class="lead">Comparing the levels of toxic, flirtatious, and identity attack tweets against five
-                    leading democratic politicians.
-                    Use the legend to choose which politician’s twitter mentions you
-                    would like to browse. </p>
+                <h2>Toxicity Timeline</h2>
+                <p class="lead">
+                    Use the dropdown to select a politician and view the Tweets about them as well as each Tweets
+                    toxicity, sexually explicit, and identity attack scores.
+                    Select a date to view Tweets from that day. Tweets shown are a small sample of total Tweets. </p>
                 <div class="form-group mx-sm-3 mb-2 form-row">
                     <select class="form-control" style="width:auto;" id="combo">
                         <option value="Ocasio-Cortez">Alexandria Ocasio-Cortez</option>
@@ -128,19 +136,19 @@
                 </div>
 
 
-            <div id="data1">
+                <div id="data1">
+                </div>
+                <p>
+                    In this graph, we can see that attacks against female politicians are different than their male
+                    counterparts. Elizabeth Warren, Alexandria Ocasio-Cortez and Nancy Pelosi are more likely to have
+                    higher levels of identity attacks or flirtatious tweets when they are mentioned on Twitter. However,
+                    Joe Biden had a higher level of sexually-explicit twitter mentions than Bernie Sanders — mostly
+                    based on sexual harassment and abuse allegations against the Democratic presidential candidate. All
+                    of the politicians had similar levels of toxicity among twitter mentions, which demonstrates that
+                    toxicity on Twitter is not always gender-based.
+                </p>
             </div>
-            <p>
-                In this graph, we can see that attacks against female politicians are different than their male
-                counterparts. Elizabeth Warren, Alexandria Ocasio-Cortez and Nancy Pelosi are more likely to have
-                higher levels of identity attacks or flirtatious tweets when they are mentioned on Twitter. However,
-                Joe Biden had a higher level of sexually-explicit twitter mentions than Bernie Sanders — mostly
-                based on sexual harassment and abuse allegations against the Democratic presidential candidate. All
-                of the politicians had similar levels of toxicity among twitter mentions, which demonstrates that
-                toxicity on Twitter is not always gender-based.
-            </p>
         </div>
-    </div>
     </div>
 </section>
 
@@ -168,7 +176,8 @@
         <div class="row">
             <div class="col-lg-12 mx-auto">
                 <h2> Percentage of Political Toxic Tweets </h2>
-                <p class="lead">Toggle between absolute number and percentage of toxic tweets directed at each politician.
+                <p class="lead">Toggle between absolute number and percentage of toxic tweets directed at each
+                    politician.
                 </p>
                 <button id="toggle" type="submit" class="btn btn-info mb-2">Toggle Percentage/Absolute</button>
                 <div id="data2">
@@ -202,30 +211,34 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12 mx-auto">
-                <h2>Graph C: Comparing Attributes</h2>
-                <p class="lead">In order to understand how the attributes sexually explicit, identity attack, and toxic interact with each other, select the attributes you wish to plot.</p>
-                
-                <div class="form-group mx-sm-6 mb-2">
+                <h2>Comparing Attributes</h2>
+                <p class="lead">In order to understand how the attributes sexually explicit, identity attack, and toxic
+                    interact with each other, select the attributes you wish to plot.</p>
 
-                    <select class="form-control" id="x_var">
+                <div class="form-group mx-sm-6 mb-2 form-row">
+
+                    <select class="form-control" style="width:auto;" id="x_var">
                         <option value="toxicity">Toxicity</option>
                         <option value="identity_attack">Identity Attack</option>
-                        <option value="sexually_explicit">Sexually Explicit</option>   
+                        <option value="sexually_explicit">Sexually Explicit</option>
                     </select>
-                    <select class="form-control" id="y_var">
+                    <select class="form-control" style="width:auto;" id="y_var">
                         <option value="identity_attack">Identity Attack</option>
                         <option value="toxicity">Toxicity</option>
-                        <option value="sexually_explicit">Sexually Explicit</option>   
+                        <option value="sexually_explicit">Sexually Explicit</option>
                     </select>
                     <input id="attribute_btn" class="btn btn-info" type="button" value="Choose Attributes"/>
-                    <br><br>
+                </div>
+                <div class="form-group mx-sm-6 mb-2 form-row">
+
                     <input id="date_input" data-provide="datepicker">
                     <input id="date_select" class="btn btn-info" type="button" value="Choose Date"/>
                 </div>
-<!--                 <p id="error_msg"></p>
- -->                <div id="data3">
+                <!--                 <p id="error_msg"></p>
+                 -->
+                <div id="data3">
                 </div>
-                
+
             </div>
         </div>
     </div>

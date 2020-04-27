@@ -125,8 +125,6 @@ $(document).ready(function () {
             toggle = false
         }
     });
-
-
     
     let x_var = "toxicity";
     let y_var = "identity_attack";
@@ -143,17 +141,6 @@ $(document).ready(function () {
         date = $('#date_input').val();
         create_attribute_chart(new Date(date), x_var, y_var);
     });
-
-    // $('#starting_date_tweets').click(function () {
-    //     year = $('#year_choice :selected').val();
-    //     toxicity_by_gender(year);
-    // });
-    // $('#date_gender').click(function(){
-    //     let date = $('#date_gender_field').val();
-    //     console.log(date);
-    //     create_gender_chart(new Date(date))
-    // });
-
 });
 
 
