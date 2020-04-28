@@ -1,4 +1,4 @@
-function get_oembed(tweet_id){
+function get_oembed(tweet_id) {
     $.ajax({
         type: "GET",
         url: "https://publish.twitter.com/oembed?url=https://twitter.com/user/status/" + tweet_id,
@@ -16,20 +16,20 @@ $(document).ready(function () {
 
     get_top_tweets('toxicity', '.9');
 
-     $('#identity_attack').click(function(){
-         get_top_tweets('identity_attack', '.7')
-     });
-     $('#sexually_explict').click(function(){
-         get_top_tweets('sexually_explicit', '.7')
-     });
-     $('#toxicity').click(function(){
-         get_top_tweets('toxicity', '.9')
-     });
+    $('#identity_attack').click(function () {
+        get_top_tweets('identity_attack', '.7')
+    });
+    $('#sexually_explict').click(function () {
+        get_top_tweets('sexually_explicit', '.7')
+    });
+    $('#toxicity').click(function () {
+        get_top_tweets('toxicity', '.9')
+    });
 });
 
 
-function get_top_tweets(attribute, gtv){
-     $.ajax({
+function get_top_tweets(attribute, gtv) {
+    $.ajax({
         type: "GET",
         url: "https://constitute.herokuapp.com/tweets/?format=json&" + attribute + "__gt=" + gtv + "&ordering=-" + attribute,
         dataType: "json",
@@ -37,7 +37,7 @@ function get_top_tweets(attribute, gtv){
             console.log(result);
             let cards = $();
             let data = result.results;
-            data.forEach(function(item, i){
+            data.forEach(function (item, i) {
                 cards = cards.add(tweet_card(item, attribute));
             });
 
@@ -49,7 +49,7 @@ function get_top_tweets(attribute, gtv){
     });
 }
 
-function tweet_card(tweet, attribute){
+function tweet_card(tweet, attribute) {
     let cardTemplate = [
         '<div class="card p-3 text-left" style="width: 18rem;>',
         '<div class="card-body">',
@@ -59,7 +59,9 @@ function tweet_card(tweet, attribute){
         '<p class="card-text">',
         tweet.text || 'cant find text',
         '</p>' +
-        '<small><a href="#" class="card-link ">Report Tweet</a></small>',
+        '<small><a href="https://twitter.com/user/status/',
+         tweet.tweet_id, '"',
+        'class="card-link ">Report Tweet</a></small>',
         '</div></div>'
     ];
     return $(cardTemplate.join(''));
