@@ -50,12 +50,6 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger" href="scoreboard.html">Wall of Shame</a>
                 </li>
-                <!--          <li class="nav-item">-->
-                <!--            <a class="nav-link js-scroll-trigger" href="#dataviz2">Gender Visualization</a>-->
-                <!--          </li>-->
-                <!--          <li class="nav-item">-->
-                <!--            <a class="nav-link js-scroll-trigger" href="#dataviz3">Toxicity/Identity Attacks</a>-->
-                <!--          </li>-->
             </ul>
         </div>
     </div>
@@ -63,32 +57,45 @@
 
 <header class="bg-primary text-white">
     <div class="container text-center">
-        <h1>Top Toxic Political Tweets</h1>
+        <h1>About</h1>
         <p class="lead">The worst tweets on Twitter</p>
     </div>
 </header>
-<section id="top_toxicitiy">
+ <section id="about">
     <div class="container">
         <div class="row">
-            <div class="col-5 my-4 mx-auto">
-
-                <button type="submit" id="toxicity" class="btn btn-outline-primary">Toxicity</button>
-                <button type="submit" id="sexually_explict" class="btn btn-outline-dark ">Sexually Explicit
-                </button>
-                <button type="submit" id="identity_attack" class="btn btn-outline-danger">Identity Attack</button>
-            </div>
-            <!--            <div class="btn-group pull-right" role="group" aria-label="Timing">-->
-            <div class="col-3 my-4 mx-auto">
-                <button type="submit" id="all_time" class="btn btn-info pull">All Time</button>
-                <button type="submit" id="recent" class="btn btn-secondary pull-right ">Recent</button>
-                <br>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-lg-10 mx-auto">
-                <div class="card-columns">
-                    <div id="top_toxic"></div>
-                </div>
+                <h2>About</h2>
+                <p class="lead">This project displays data visualizations about toxicity on Twitter for various high
+                    profile politicians.
+                    The data was collected using the Twitter Search API using the politician's first and last name and
+                    Twitter handles as search key words.
+                    In order to get information about the sentiment of the tweet, we used the <a
+                            href="http://www.perspectiveapi.com/">Perspective API</a>, an AI powered API used to detect
+                    abuse and
+                    harassment online. Perspective API has the ability to <em>toxicity, identity
+                        attack,</em> and <em>sexually explicit</em> attributes, defined below.</p>
+
+                <p class="lead"><b>Toxicity:</b> Rude, disrespectful, or unreasonable comment that is likely to make
+                    people leave a discussion.</p>
+
+                <p class="lead"><b>Identity Attack:</b> Negative or hateful comments targeting someone because of their
+                    identity.</p>
+
+                <p class="lead"><b>Sexually Explicit:</b> Contains references to sexual acts, body parts, or other lewd
+                    content.</p>
+
+
+                <p class="lead">Perspective API takes comment text as input and returns a "score" from 0 to 1 that
+                    indicates the probability that the comment is similar to toxic comments it's seen in the past.
+                    A score of 0 signifies 0% probability that the comment is toxic and a score of 1 signifies 100%
+                    probability that the comment is toxic.</p>
+
+                <p class="lead"> It is important to note that there are <a
+                        href="https://medium.com/the-false-positive/unintended-bias-and-names-of-frequently-targeted-groups-8e0b81f80a23">known
+                    unintended biases</a> within the Perspective API.
+                </p>
+
             </div>
         </div>
     </div>
