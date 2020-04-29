@@ -25,13 +25,21 @@ $(document).ready(function () {
     $('#toxicity').click(function () {
         get_top_tweets('toxicity', '.9')
     });
+    $('#all_time').click(function () {
+        get_top_tweets('toxicity', '.9', false)
+    });
+    $('#recent').click(function () {
+        get_top_tweets('toxicity', '.9', true)
+    });
+
 });
 
 
-function get_top_tweets(attribute, gtv) {
+function get_top_tweets(attribute, gtv, recent=true) {
+    recent_url = recent ? '': "&ordering=-" + attribute;
     $.ajax({
         type: "GET",
-        url: "https://constitute.herokuapp.com/tweets/?format=json&" + attribute + "__gt=" + gtv + "&ordering=-" + attribute,
+        url: "https://constitute.herokuapp.com/tweets/?format=json&" + attribute + "__gt=" + gtv + recent_url,
         dataType: "json",
         success: function (result, status, xhr) {
             console.log(result);
