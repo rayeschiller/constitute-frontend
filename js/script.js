@@ -53,10 +53,45 @@ function create_tweet_chart(last_name, query_date) {
                     }
                 }
             };
+            let t_marker = {
+                opacity:.7,
+                size:toxicity.map(a => a*100),
+                sizeref: .5,
+                sizemode: 'area',
+                line: {
+                    color: 'grey',
+                    width:1,
+                    opacity:.7
 
-            let toxicity_trace = create_trace(dates, toxicity, "Toxicity", 'lines+markers', texts);
-            let identity_attack_trace = create_trace(dates, identity_attack_data, "Identity Attack", 'lines+markers');
-            let sexually_explicit_trace = create_trace(dates, sexually_explicit_data, "Sexually Explicit", 'lines+markers');
+                }
+            };
+            let ia_marker = {
+                opacity:.7,
+                size:identity_attack_data.map(a => a*100),
+                sizeref: .5,
+                sizemode: 'area',
+                line: {
+                    color: 'grey',
+                    width:1,
+                    opacity:.7
+
+                }
+            };
+            let se_marker = {
+                opacity:.7,
+                size:sexually_explicit_data.map(a => a*100),
+                sizeref: .5,
+                sizemode: 'area',
+                line: {
+                    color: 'grey',
+                    width:1,
+                    opacity:.7
+
+                }
+            };
+            let toxicity_trace = create_trace(dates, toxicity, "Toxicity", 'markers', texts, null, t_marker);
+            let identity_attack_trace = create_trace(dates, identity_attack_data, "Identity Attack", 'markers', null,'scatter', ia_marker);
+            let sexually_explicit_trace = create_trace(dates, sexually_explicit_data, "Sexually Explicit", 'markers', null, null, se_marker);
             let trace_data = [toxicity_trace, identity_attack_trace, sexually_explicit_trace];
             Plotly.newPlot(DATA1, trace_data, layout);
         },
@@ -70,7 +105,7 @@ function create_tweet_chart(last_name, query_date) {
 function toxicity_frequency(absolute = false) {
     $.ajax({
         type: "GET",
-        url: "https://constitute.herokuapp.com/politicians/toxicity_counts?format=json&",
+        url: "https://constitute.herokuapp.com/politicians/toxicity_counts?format=json",
         dataType: "json",
         success: function (result, status, xhr) {
             console.log(result);
@@ -86,6 +121,7 @@ function toxicity_frequency(absolute = false) {
                 sexually_explicit = y.map(a => a.sexually_explicit / a.total);
                 identity_attack = y.map(a => a.identity_attack / a.total);
             }
+
             let data = [create_trace(x, toxicity, 'toxicity', null, null, 'bar'),
                 create_trace(x, sexually_explicit, 'sexually explicit', null, null, 'bar'),
                 create_trace(x, identity_attack, 'identity attack', null, null, 'bar')];
@@ -144,25 +180,17 @@ $(document).ready(function () {
 });
 
 
-function create_trace(x_data, y_data, name_info, mode = 'markers', texts = null, type = 'scatter') {
+function create_trace(x_data, y_data, name_info, mode = 'markers', texts = null, type = 'scatter', marker_data = {}) {
     return {
         x: x_data,
         y: y_data,
         text: texts,
         name: name_info,
         mode: mode,
-        type: type
+        type: type,
+        marker: marker_data
     };
 }
-
-// function count_trace(x_data, y_data, name_info) {
-//     return {
-//         x: x_data,
-//         y: y_data,
-//         type: 'bar',
-//         name: name_info
-//     }
-// };
 
 function count_layout(absolute) {
     if (absolute) {
@@ -171,19 +199,20 @@ function count_layout(absolute) {
         return {
             yaxis: {
                 tickformat: ',.0%',
-                // range: [0, 1]
             }
         }
     }
 }
 
 function get_newline_text(text) {
-    let html = text.split(" ");
+    let words = text.split(" ");
     let newhtml = [];
-    for (let i = 0; i < html.length; i++) {
+    for (let i = 0; i < words.length; i++) {
         if (i > 0 && (i % 5) === 0)
             newhtml.push("<br />");
-        newhtml.push(html[i]);
+        if (words[i].charAt(0) !== '@') {
+            newhtml.push(words[i]);
+        }
     }
     newhtml = newhtml.join(" ");
     return newhtml;
@@ -214,14 +243,19 @@ function create_attribute_chart(query_date, x_var, y_var) {
             //     document.getElementById("#error_msg").innerHTML = "Data not available for this date.";
             //     return;
             // }
-            let attr_trace = create_trace(x_data, y_data, "Toxicity", 'markers', texts);
+            let marker_data = {
+                color: 'rgba(17, 157, 255)',
+                size: x_data.map(a => a*10),
+                sizeref: .3,
+                opacity:0.7,
+                line: {
+                    color: 'rgb(231, 99, 250)',
+                    width: 2,
+                }};
+
+            let attr_trace = create_trace(x_data, y_data, "Toxicity", 'markers', texts, null, marker_data);
             const layout = {
-                // yaxis: {
-                //     range: [0, 1]
-                // },
-                // xaxis: {
-                //     range: [0, 1]
-                // },
+
                 title: y_var.replace("_", " ").replace(y_var[0], y_var[0].toUpperCase()) + " Vs " + x_var.replace("_", " ").replace(x_var[0], x_var[0].toUpperCase()) + " On " + query_date.toString().substring(0, 15),
                 xaxis: {
                     title: {
@@ -238,10 +272,10 @@ function create_attribute_chart(query_date, x_var, y_var) {
 
             Plotly.newPlot(DATA3, [attr_trace], layout);
         },
-        error: function (xhr, status, error) {
-            console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
-        }
-    });
+            error: function (xhr, status, error) {
+                console.log("Result: " + status + " " + error + " " + xhr.status + " " + xhr.statusText)
+            }
+        });
 }
 
 

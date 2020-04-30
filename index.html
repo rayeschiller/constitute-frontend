@@ -75,9 +75,10 @@
             <div class="col-lg-12 mx-auto">
                 <h2>Toxicity Timeline</h2>
                 <p class="lead">
+                    Each marker represents a Tweet along the axis of its respective toxicity score and the date/time.
                     Use the dropdown to select a politician and view recent Tweets about them with each Tweets
                     toxicity, sexually explicit, and identity attack scores.
-                    Select a date to view Tweets from that day. Tweets shown are a sample of total Tweets. </p>
+                    Select a date to view Tweets from that day. Zoom in to see each tweet. Tweets shown are a sample of total Tweets. </p>
                 <div class="form-group mx-sm-3 mb-2 form-row">
                     <select class="form-control" style="width:auto;" id="combo">
                         <option value="Ocasio-Cortez">Alexandria Ocasio-Cortez</option>
@@ -117,12 +118,22 @@
         <div class="row">
             <div class="col-lg-12 mx-auto">
                 <h2> Percentage of Political Toxic Tweets </h2>
-                <p class="lead">Toggle between absolute number and percentage of toxic, sexually explicit, and identity attack tweets directed at each
-                    politician, defined as tweets with scores above .7.
+                <p class="lead">Toggle between absolute number and percentage of toxic, sexually explicit, and identity
+                    attack tweets directed at each
+                    politician, defined as tweets with respective scores above .7.
                 </p>
-                <button id="toggle" type="submit" class="btn btn-info mb-2">Toggle Percentage/Absolute</button>
+                <button id="toggle" type="submit" class="btn btn-info mb-2">Percentage/Absolute</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12 mx-auto">
                 <div id="data2">
                 </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-lg-12 mx-auto my-3">
                 <p>
                     The two views represent absolute number of toxic tweets and proportional number of toxic tweets in
                     relation to the total number of tweets.</p>
@@ -131,7 +142,6 @@
                     for all attributes have a fair mix of male and female candidates. In fact, Joe Biden has the highest
                     number of sexually explicit Tweets, likely because of the recent sexual abuse allegations against
                     him.</p>
-
             </div>
         </div>
     </div>
