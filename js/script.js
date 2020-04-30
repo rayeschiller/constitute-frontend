@@ -67,7 +67,7 @@ function create_tweet_chart(last_name, query_date) {
 }
 
 
-function toxicity_frequency(absolute=false) {
+function toxicity_frequency(absolute = false) {
     $.ajax({
         type: "GET",
         url: "https://constitute.herokuapp.com/politicians/toxicity_counts?format=json&",
@@ -86,9 +86,9 @@ function toxicity_frequency(absolute=false) {
                 sexually_explicit = y.map(a => a.sexually_explicit / a.total);
                 identity_attack = y.map(a => a.identity_attack / a.total);
             }
-            let data = [count_trace(x, toxicity, 'toxicity'),
-                count_trace(x, sexually_explicit, 'sexually explicit'),
-                count_trace(x, identity_attack, 'identity attack')];
+            let data = [create_trace(x, toxicity, 'toxicity', null, null, 'bar'),
+                create_trace(x, sexually_explicit, 'sexually explicit', null, null, 'bar'),
+                create_trace(x, identity_attack, 'identity attack', null, null, 'bar')];
             Plotly.newPlot(DATA2, data, count_layout(absolute));
         },
         error: function (xhr, status, error) {
@@ -103,7 +103,7 @@ $(document).ready(function () {
     let today = new Date();
     $('#date_tweets_field').attr("placeholder", today);
     create_tweet_chart(last_name, today);
-    let toggle=false;
+    let toggle = false;
     toxicity_frequency(toggle);
     //Change graph depending on politician
     //Change graph depending on date
@@ -125,7 +125,7 @@ $(document).ready(function () {
             toggle = false
         }
     });
-    
+
     let x_var = "toxicity";
     let y_var = "identity_attack";
     let date;
@@ -144,25 +144,25 @@ $(document).ready(function () {
 });
 
 
-function create_trace(x_data, y_data, name_info, mode = 'markers', texts = null) {
+function create_trace(x_data, y_data, name_info, mode = 'markers', texts = null, type = 'scatter') {
     return {
         x: x_data,
         y: y_data,
         text: texts,
         name: name_info,
         mode: mode,
-        type: 'scatter'
+        type: type
     };
 }
 
-function count_trace(x_data, y_data, name_info) {
-    return {
-        x: x_data,
-        y: y_data,
-        type: 'bar',
-        name: name_info
-    }
-};
+// function count_trace(x_data, y_data, name_info) {
+//     return {
+//         x: x_data,
+//         y: y_data,
+//         type: 'bar',
+//         name: name_info
+//     }
+// };
 
 function count_layout(absolute) {
     if (absolute) {
@@ -202,13 +202,13 @@ function create_attribute_chart(query_date, x_var, y_var) {
             let data = result.results;
             let x_data = [];
             let y_data = [];
-           
+
             let texts = [];
             for (let i = 0; i < data.length; i++) {
                 x_data.push(parseFloat(data[i][x_var]));
                 y_data.push(parseFloat(data[i][y_var]));
                 texts.push(get_newline_text(data[i].text));
-                
+
             }
             // if (data.length === 0) {
             //     document.getElementById("#error_msg").innerHTML = "Data not available for this date.";
@@ -216,26 +216,26 @@ function create_attribute_chart(query_date, x_var, y_var) {
             // }
             let attr_trace = create_trace(x_data, y_data, "Toxicity", 'markers', texts);
             const layout = {
-                yaxis: {
-                    range: [0, 1]
-                },
-                xaxis: {
-                    range: [0, 1]
-                },
-                title: y_var.replace("_", " ").replace(y_var[0], y_var[0].toUpperCase()) + " Vs " + x_var.replace("_", " ").replace(x_var[0], x_var[0].toUpperCase()) + " On " + query_date.toString().substring(0,15),
+                // yaxis: {
+                //     range: [0, 1]
+                // },
+                // xaxis: {
+                //     range: [0, 1]
+                // },
+                title: y_var.replace("_", " ").replace(y_var[0], y_var[0].toUpperCase()) + " Vs " + x_var.replace("_", " ").replace(x_var[0], x_var[0].toUpperCase()) + " On " + query_date.toString().substring(0, 15),
                 xaxis: {
                     title: {
-                        text: x_var.replace("_", " ").replace(x_var[0], x_var[0].toUpperCase()) + " Score (0-1)"
+                        text: x_var.replace("_", " ").replace(x_var[0], x_var[0].toUpperCase())
                     }
                 },
                 yaxis: {
                     title: {
-                        text: y_var.replace("_", " ").replace(y_var[0], y_var[0].toUpperCase()) + " Score (0-1)"
+                        text: y_var.replace("_", " ").replace(y_var[0], y_var[0].toUpperCase())
                     }
                 }
             };
 
-            
+
             Plotly.newPlot(DATA3, [attr_trace], layout);
         },
         error: function (xhr, status, error) {
@@ -243,29 +243,6 @@ function create_attribute_chart(query_date, x_var, y_var) {
         }
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // function get_year(year) {
@@ -334,14 +311,14 @@ function create_attribute_chart(query_date, x_var, y_var) {
 //             }
 //             let tox_per_day = []
 //             let dates = Object.keys(obj_dates)
-        
+
 
 //             for (const v in obj_dates) {
 //                 console.log(v);
 //                 tox_per_day.push(v.toxic/v.total)
 //             }
 //             return dates, tox_per_day
-            
+
 //             // Plotly.newPlot(DATA2, data);
 // }
 
