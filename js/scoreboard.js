@@ -42,7 +42,6 @@ function get_top_tweets(attribute, gtv, recent=true) {
         url: "https://constitute.herokuapp.com/tweets/?format=json&" + attribute + "__gt=" + gtv + recent_url,
         dataType: "json",
         success: function (result, status, xhr) {
-            console.log(url);
             console.log(result);
             let cards = $();
             let data = result.results;
