@@ -4,14 +4,15 @@ DATA3 = document.getElementById('data3');
 DATA4 = document.getElementById('data4');
 
 function get_date_query(query_date) {
-    let gt_month = query_date.getMonth();
-    let lt_month = query_date.getMonth() + 2;
-    let gt_year = query_date.getFullYear() - 1;
-    let lt_year = query_date.getFullYear() + 1;
-    let gt_day = query_date.getDate() - 1;
-    let lt_day = query_date.getDate() + 1;
-    console.log("gt_month %s, lt_month %s, gt_year %s, lt_year %s, gt_day %s, lt_day %s", gt_month, lt_month, gt_year, lt_year, gt_day, lt_day);
-    return "&created_at__year__lt=" + lt_year + "&created_at__year__gt=" + gt_year + "&created_at__month__gt=" + gt_month + "&created_at__month__lt=" + lt_month + "&created_at__day__gt=" + gt_day + "&created_at__day__lt=" + lt_day;
+    // let gt_month = query_date.getMonth();
+    // let lt_month = query_date.getMonth() + 2;
+    // let gt_year = query_date.getFullYear() - 1;
+    // let lt_year = query_date.getFullYear() + 1;
+    // let gt_day = query_date.getDate() - 1;
+    // let lt_day = query_date.getDate() + 1;
+    // console.log("gt_month %s, lt_month %s, gt_year %s, lt_year %s, gt_day %s, lt_day %s", gt_month, lt_month, gt_year, lt_year, gt_day, lt_day);
+    // return "&created_at__year__lt=" + lt_year + "&created_at__year__gt=" + gt_year + "&created_at__month__gt=" + gt_month + "&created_at__month__lt=" + lt_month + "&created_at__day__gt=" + gt_day + "&created_at__day__lt=" + lt_day;
+    return "&date=" + query_date.getFullYear() + "-" + query_date.getMonth() + "-" + query_date.getDate()
 };
 
 function create_tweet_chart(last_name, query_date) {
