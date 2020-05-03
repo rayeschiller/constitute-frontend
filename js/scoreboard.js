@@ -69,7 +69,7 @@ function tweet_card(tweet, attribute) {
         '</p>' +
         '<small><a href="https://twitter.com/user/status/',
          tweet.tweet_id, '"',
-        'class="card-link ">Report Tweet</a></small>',
+        'class="card-link" target="_blank">Report Tweet</a></small>',
         '</div></div>'
     ];
     return $(cardTemplate.join(''));
