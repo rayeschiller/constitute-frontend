@@ -4,15 +4,13 @@ DATA3 = document.getElementById('data3');
 DATA4 = document.getElementById('data4');
 
 function get_date_query(query_date) {
-    // let gt_month = query_date.getMonth();
-    // let lt_month = query_date.getMonth() + 2;
-    // let gt_year = query_date.getFullYear() - 1;
-    // let lt_year = query_date.getFullYear() + 1;
-    // let gt_day = query_date.getDate() - 1;
-    // let lt_day = query_date.getDate() + 1;
-    // console.log("gt_month %s, lt_month %s, gt_year %s, lt_year %s, gt_day %s, lt_day %s", gt_month, lt_month, gt_year, lt_year, gt_day, lt_day);
-    // return "&created_at__year__lt=" + lt_year + "&created_at__year__gt=" + gt_year + "&created_at__month__gt=" + gt_month + "&created_at__month__lt=" + lt_month + "&created_at__day__gt=" + gt_day + "&created_at__day__lt=" + lt_day;
-    return "&date=" + query_date.getFullYear() + "-" + query_date.getMonth() + "-" + query_date.getDate()
+    let day_after = new Date(query_date);
+    day_after.setDate(day_after.getDate() + 1);
+    let month = query_date.getMonth() +1;
+    let day_after_month = day_after.getMonth() + 1;
+    let start_date = query_date.getFullYear() + "-" + month + "-" + query_date.getDate();
+    let end_date = day_after.getFullYear() + "-" + day_after_month + "-" + day_after.getDate();
+    return "&start_date=" + start_date + "&end_date=" + end_date
 };
 
 function create_tweet_chart(last_name, query_date) {
@@ -23,6 +21,7 @@ function create_tweet_chart(last_name, query_date) {
         url: "https://constitute.herokuapp.com/tweets/?format=json&limit=100&politician__last_name=" + last_name + q_date,
         dataType: "json",
         success: function (result, status, xhr) {
+            console.log('test');
             console.log(this.url);
             console.log(result);
             let data = result.results;
@@ -146,7 +145,7 @@ $(document).ready(function () {
     //Change graph depending on date
     $('#button1').click(function () {
         last_name = $('#combo :selected').val();
-        create_tweet_chart(last_name, today, DATA1);
+        create_tweet_chart(last_name, today);
     });
     $('#date_tweets').click(function () {
         let date = $('#date_tweets_field').val();
