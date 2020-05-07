@@ -39,7 +39,7 @@ function get_top_tweets(attribute, gtv, recent=true) {
     recent_url = recent ? '': "&ordering=-" + attribute;
     $.ajax({
         type: "GET",
-        url: "https://constitute.herokuapp.com/tweets/?format=json&" + attribute + "__gt=" + gtv + recent_url,
+        url: "https://constitute.herokuapp.com/tweets/?format=json&" + attribute + "__gte=" + gtv + recent_url,
         dataType: "json",
         success: function (result, status, xhr) {
             console.log(result);
