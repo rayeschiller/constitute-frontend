@@ -8,4 +8,4 @@ Perspective API has the ability to detect multiple attributes. We used toxicity,
 Perspective API returns a score from 0 to 1 on the probability of each of these attributes given the text. 
 It should be noted that there are known unintended biases within the Perspective API.
 
-View at : https://rinaschiller.github.io/political-tweet-toxicity/
+View at : https://rinaschiller.github.io/constitute-frontend/
